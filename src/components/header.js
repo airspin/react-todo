@@ -1,31 +1,42 @@
 /* eslint-disable */
 import React, { Component } from 'react';
-import { PageHeader, Button, Grid, Row, Col, FormControl } from 'react-bootstrap';
+import { PageHeader, Button, Grid, Row, Col, FormControl, FormGroup, InputGroup, Glyphicon, Checkbox, ControlLabel } from 'react-bootstrap';
 
 
 class ListPageHeader extends Component {
     render() {
         return (
             <div>
-                <PageHeader>
-                    <Grid>
-                        <Row className="show-grid">
-                            <Col md={3} className="text-left">ToDo-List</Col>
-                            <Col md={9}>
-                                <Col className="pull-right">
+                <Grid>
+                    <Row className="show-grid">
+                        <Col md={3} className="text-left">
+                            <h2>
+                                ToDo-List
+                            </h2>
+                        </Col>
+                        <Col md={3}>
+                            <Checkbox inline>
+                                1
+                            </Checkbox>
+                        </Col>
+                        <Col md={9}>
+                            <FormGroup>
+                                <Checkbox inline>
+                                    1
+                                </Checkbox>
+                                <InputGroup>
                                     <FormControl
                                         type="text"
-                                        // value={this.state.value}
-                                        placeholder="Enter text"
-                                        // onChange={this.handleChange}
+                                        placeholder="Enter name"
                                     />
-                                </Col>
-                            </Col>
-                        </Row>
-                    </Grid>
-                </PageHeader>
-                <Button bsStyle="primary">Primary</Button>
-                <p>TODO 10</p>
+                                    <InputGroup.Addon>
+                                        <Glyphicon glyph="remove-circle" />
+                                    </InputGroup.Addon>
+                                </InputGroup>
+                            </FormGroup>
+                        </Col>
+                    </Row>
+                </Grid>
             </div>
         )
     }
