@@ -3,3 +3,195 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+#searchinput {
+  width: 200px;
+}
+
+#searchclear {
+  position: absolute;
+  right: 5px;
+  top: 0;
+  bottom: 0;
+  height: 14px;
+  margin: auto;
+  font-size: 14px;
+  cursor: pointer;
+  color: #ccc;
+}
+
+
+.padd-left-sm {
+  padding-left: 10px;
+}
+
+.padd-left-md {
+  padding-left: 20px;
+}
+
+.padd-left-lg {
+  padding-left: 30px;
+}
+
+.padd-left-xl {
+  padding-left: 40px;
+}
+
+
+.padd-right-sm {
+  padding-right: 10px;
+}
+
+.padd-right-md {
+  padding-right: 20px;
+}
+
+.padd-right-lg {
+  padding-right: 30px;
+}
+
+.padd-right-xl {
+  padding-right: 40px;
+}
+
+
+.padd-top-sm {
+  padding-top: 10px;
+}
+
+.padd-top-md {
+  padding-top: 20px;
+}
+
+.padd-top-lg {
+  padding-top: 30px;
+}
+
+.padd-top-xl {
+  padding-top: 40px;
+}
+
+
+.padd-bottom-sm {
+  padding-bottom: 10px;
+}
+
+.padd-bottom-md {
+  padding-bottom: 20px;
+}
+
+.padd-bottom-lg {
+  padding-bottom: 30px;
+}
+
+.padd-bottom-xl {
+  padding-bottom: 40px;
+}
+
+
+.padd-bottom-sm {
+  padding-bottom: 10px;
+}
+
+.padd-bottom-md {
+  padding-bottom: 20px;
+}
+
+.padd-bottom-lg {
+  padding-bottom: 30px;
+}
+
+.padd-bottom-xl {
+  padding-bottom: 40px;
+}
+
+
+/*margin*/
+
+.marg-left-sm {
+  margin-left: 10px;
+}
+
+.marg-left-md {
+  margin-left: 20px;
+}
+
+.marg-left-lg {
+  margin-left: 30px;
+}
+
+.marg-left-xl {
+  margin-left: 40px;
+}
+
+
+.marg-right-sm {
+  margin-right: 10px;
+}
+
+.marg-right-md {
+  margin-right: 20px;
+}
+
+.marg-right-lg {
+  margin-right: 30px;
+}
+
+.marg-right-xl {
+  margin-right: 40px;
+}
+
+
+.marg-top-sm {
+  margin-top: 10px;
+}
+
+.marg-top-md {
+  margin-top: 20px;
+}
+
+.marg-top-lg {
+  margin-top: 30px;
+}
+
+.marg-top-xl {
+  margin-top: 40px;
+}
+
+
+.marg-bottom-sm {
+  margin-bottom: 10px;
+}
+
+.marg-bottom-md {
+  margin-bottom: 20px;
+}
+
+.marg-bottom-lg {
+  margin-bottom: 30px;
+}
+
+.marg-bottom-xl {
+  margin-bottom: 40px;
+}
+
+
+.marg-bottom-sm {
+  margin-bottom: 10px;
+}
+
+.marg-bottom-md {
+  margin-bottom: 20px;
+}
+
+.marg-bottom-lg {
+  margin-bottom: 30px;
+}
+
+.marg-bottom-xl {
+  margin-bottom: 40px;
+}
+
+.fixed-height {
+  height: 70vh;
+}

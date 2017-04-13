@@ -3,13 +3,11 @@ import { PageHeader, Button, Grid, Row, Col, FormControl, ProgressBar } from 're
 class ProgrBar extends Component {
     render() {
         return(
-            <Grid>
-                <Row className="show-grid">
-                    <Col md={12}>
-                        <ProgressBar now={5} />
-                    </Col>
-                </Row>
-            </Grid>
+            <Row className="show-grid">
+                <Col md={12}>
+                    <ProgressBar now={5} />
+                </Col>
+            </Row>
         )
     }
 }
