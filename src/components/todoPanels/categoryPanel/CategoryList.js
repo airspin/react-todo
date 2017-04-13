@@ -4,6 +4,13 @@ import s from './style.css';
 class CategoryList extends Component {
 
     render() {
+        function (obj) {
+            if (obj.subCat) {
+                return (
+                    
+                )
+            }
+        }
         return(
             <div className="row">
                 <div className="col-md-12 fixed-height">
