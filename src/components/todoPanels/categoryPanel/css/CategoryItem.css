@@ -1,0 +1,35 @@
+.addBtn {
+    float: right;
+    padding: 4px 0px 0px 5px;
+}
+
+
+.pure-list {
+    list-style-type: none;
+}
+
+.pure-list .pure-list {
+    list-style-type: none;
+    max-height: 0;
+    transition: max-height 0.15s ease-out;
+    overflow: hidden;
+}
+
+.show-subcat-btn ~ .pure-list .pure-list{
+    max-height: 500px;
+    transition: max-height 0.25s ease-in;
+}
+
+
+
+
+
+.task-item .task-title{
+    min-width: 40%;
+    float: left;
+    text-align: right;
+}
+
+.task-item .fa {
+    cursor: pointer;
+}

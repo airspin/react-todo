@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import ListPageHeader from './components/ListPageHeader'
 import ProgrBar from './components/progressBar';
 import TodoPanels from './components/TodoPanels';
-
+import '../src/css/fontawesome/css/font-awesome.min.css';
 const categories=[
     {
         name:'Работа',
@@ -19,7 +19,25 @@ const categories=[
             },
             {
                 name:'Отдых 2',
-                id:4
+                id:4,
+                subCat: [
+                    {
+                        name:'Спорт 2',
+                        id:2
+                    },
+                    {
+                        name:'Обучение 2',
+                        id:3
+                    },
+                    {
+                        name:'Отдых 2',
+                        id:4
+                    },
+                    {
+                        name:'Командировки 2',
+                        id:5
+                    }
+                ]
             },
             {
                 name:'Командировки 2',
