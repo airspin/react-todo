@@ -15,7 +15,7 @@
     overflow: hidden;
 }
 
-.show-subcat-btn ~ .pure-list .pure-list{
+.pure-list .show-subcat-btn:hover > ul {
     max-height: 500px;
     transition: max-height 0.25s ease-in;
 }
