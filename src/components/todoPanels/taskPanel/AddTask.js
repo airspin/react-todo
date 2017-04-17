@@ -7,8 +7,8 @@ class AddTask extends Component {
         const btnName = 'Add';
         return(
             <AddItem
-                placeholder = {placeholder}
-                btnName = {btnName}
+                placeholder={placeholder}
+                btnName={btnName}
             />
         )
     }

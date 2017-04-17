@@ -11,37 +11,37 @@ const categories=[
         subCat: [
             {
                 name:'Спорт 2',
-                id:2
+                id:11
             },
             {
                 name:'Обучение 2',
-                id:3
+                id:12
             },
             {
                 name:'Отдых 2',
-                id:4,
+                id:13,
                 subCat: [
                     {
-                        name:'Спорт 2',
-                        id:2
+                        name:'Спорт 21',
+                        id:131
                     },
                     {
-                        name:'Обучение 2',
-                        id:3
+                        name:'Обучение 21',
+                        id:132
                     },
                     {
-                        name:'Отдых 2',
-                        id:4
+                        name:'Отдых 21',
+                        id:133
                     },
                     {
-                        name:'Командировки 2',
-                        id:5
+                        name:'Командировки 21',
+                        id:134
                     }
                 ]
             },
             {
                 name:'Командировки 2',
-                id:5
+                id: 14
             }
         ]
     },
@@ -83,4 +83,12 @@ class App extends Component {
     }
 }
 
+// export default connect(
+//     state => ({
+//
+//     }),
+//     dispatch => ({
+//
+//     })
+// )(App);
 export default App;

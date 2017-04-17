@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, FormControl, FormGroup, InputGroup, Glyphicon, ControlLabel  } from 'react-bootstrap';
+import { Button, FormControl, FormGroup, InputGroup } from 'react-bootstrap';
 
 class CategoryPanel extends Component {
     render() {

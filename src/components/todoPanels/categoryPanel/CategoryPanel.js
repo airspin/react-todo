@@ -13,8 +13,8 @@ class CategoryPanel extends Component {
         return(
             <div className="col-md-4">
                 <AddCategory
-                    placeholder = {placeholder}
-                    btnName = {btnName}
+                    placeholder={placeholder}
+                    btnName={btnName}
                 />
                 <CategoryList categories={this.props.categories}/>
 

@@ -3,36 +3,35 @@ import React, { Component } from 'react';
 
 import CategoryItem from './CategoryItem';
 
-const getLi = (cat) => (<li key={cat.id}>1 {cat.name}</li>);
 
 
-const makeTree = (obj) => {
-    var tree = [];
-    // console.info(tree,'before');
-    function recurseTree(cont,init) {
-        var tempObj = {};
-        tempObj.id = cont.id;
-        tempObj.name = cont.name;
-        if (cont.subCat && cont.subCat.length) {
-            tempObj.subCat=cont.subCat;
-            recurseTree(tempObj.subCat,cont.subCat);
-        }
-        init.push(tempObj);
-    }
-
-
-    obj.map((cat) => {
-        var subCat = obj.subCat;
-        // if (subCat && subCat.length){
-        //     tree[cat.id]={name: cat.name,subCat: []};
-        //     recurseTree(tree[cat.id]);
-        // }
-        recurseTree(cat,tree);
-        // tree[cat.id]=cat.name;
-    });
-
-    console.log(tree);
-};
+// const makeTree = (obj) => {
+//     var tree = [];
+//     // console.info(tree,'before');
+//     function recurseTree(cont,init) {
+//         var tempObj = {};
+//         tempObj.id = cont.id;
+//         tempObj.name = cont.name;
+//         if (cont.subCat && cont.subCat.length) {
+//             tempObj.subCat=cont.subCat;
+//             recurseTree(tempObj.subCat,cont.subCat);
+//         }
+//         init.push(tempObj);
+//     }
+//
+//
+//     obj.map((cat) => {
+//         var subCat = obj.subCat;
+//         // if (subCat && subCat.length){
+//         //     tree[cat.id]={name: cat.name,subCat: []};
+//         //     recurseTree(tree[cat.id]);
+//         // }
+//         recurseTree(cat,tree);
+//         // tree[cat.id]=cat.name;
+//     });
+//
+//     console.log(tree);
+// };
 
 
 
@@ -44,7 +43,11 @@ class CategoryList extends Component {
         return(
             <div className="row">
                 <div className="col-md-12 fixed-height">
-                    <CategoryItem categories={categories} />
+                    <ul className="pure-list">
+                        {categories.map(cat =>
+                            <CategoryItem key={cat.id} category={cat}/>
+                        )}
+                    </ul>
                 </div>
             </div>
         )

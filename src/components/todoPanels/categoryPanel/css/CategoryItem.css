@@ -3,26 +3,20 @@
     padding: 4px 0px 0px 5px;
 }
 
-
 .pure-list {
     list-style-type: none;
 }
 
 .pure-list .pure-list {
-    list-style-type: none;
-    max-height: 0;
-    transition: max-height 0.15s ease-out;
+    max-height: 500px;
+    transition: max-height 0.25s ease-in;
     overflow: hidden;
 }
 
-.pure-list .show-subcat-btn:hover > ul {
-    max-height: 500px;
-    transition: max-height 0.25s ease-in;
+.pure-list .pure-list.hidden-list {
+    max-height: 0px;
+    transition: max-height 0.15s ease-out;
 }
-
-
-
-
 
 .task-item .task-title{
     min-width: 40%;
