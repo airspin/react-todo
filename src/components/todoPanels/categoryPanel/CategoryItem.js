@@ -51,6 +51,7 @@ class CategoryItem extends Component {
         console.log(`Render item ${id} count ${++cnt}`);
         return (
             <li>
+
                 <span className={"list-group-item task-item" + (this.state.isActive ? " active" : "")} onClick={this.toggleAtive}>
                     {subCat && subCat.length &&
                     <span className="pull-left padd-right-sm show-subcat-btn" onClick={this.toggleList}>

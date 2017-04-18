@@ -37,7 +37,6 @@ import CategoryItem from './CategoryItem';
 
 
 class CategoryList extends Component {
-
     render() {
         const { categories } = this.props;
         return(
@@ -56,22 +55,3 @@ class CategoryList extends Component {
 
 export default CategoryList;
 
-/*
- <ul>
- {this.props.categories.map((cat) => {
- return(
- <li key={cat.id}>
- {cat.name}
- {cat.subCat &&
- (
- <ul>
- {cat.subCat.map( sCat => getLi(sCat))}
- </ul>
- )
- }
- </li>
- )
- })}
- </ul>
-
- */
