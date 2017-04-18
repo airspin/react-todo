@@ -4,6 +4,7 @@ import ListPageHeader from './components/ListPageHeader'
 import ProgrBar from './components/progressBar';
 import TodoPanels from './components/TodoPanels';
 import '../src/css/fontawesome/css/font-awesome.min.css';
+import { connect } from 'react-redux';
 const categories=[
     {
         name:'Работа',
@@ -83,12 +84,12 @@ class App extends Component {
     }
 }
 
-// export default connect(
-//     state => ({
-//
-//     }),
-//     dispatch => ({
-//
-//     })
-// )(App);
-export default App;
+export default connect(
+    state => ({
+        dataStore: state.data
+    }),
+    dispatch => ({
+
+    })
+)(App);
+// export default App;

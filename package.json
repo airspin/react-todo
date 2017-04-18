@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "bootstrap": "^3.3.7",
+    "normalizr": "^3.2.2",
     "prop-types": "^15.5.8",
     "react": "^15.5.3",
     "react-bootstrap": "^0.30.8",
