@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, FormControl, FormGroup, InputGroup } from 'react-bootstrap';
 
-class CategoryPanel extends Component {
+class AddItem extends Component {
     render() {
         return(
             <FormGroup>
@@ -19,4 +19,4 @@ class CategoryPanel extends Component {
     }
 }
 
-export default CategoryPanel;
+export default AddItem;

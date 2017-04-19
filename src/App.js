@@ -2,9 +2,11 @@
 import React, { Component } from 'react';
 import ListPageHeader from './components/ListPageHeader'
 import ProgrBar from './components/progressBar';
-import TodoPanels from './components/TodoPanels';
+import TaskPanel from './components/taskPanel';
+import CategoryPanel from './components/categoryPanel';
 import '../src/css/fontawesome/css/font-awesome.min.css';
-import { connect } from 'react-redux';
+
+
 const categories=[
     {
         name:'Работа',
@@ -74,22 +76,18 @@ class App extends Component {
             <div className="container">
                 <ListPageHeader />
                 <ProgrBar />
-                <TodoPanels categories = {categories} />
-                <div className="col-md-4">
-
+                <div className="row">
+                    <div className="col-md-4">
+                        <CategoryPanel categories={categories} selectCat={this.props.onSelectCat}/>
+                    </div>
+                    <div className="col-md-8">
+                        <TaskPanel />
+                    </div>
                 </div>
-
             </div>
         );
     }
 }
 
-export default connect(
-    state => ({
-        dataStore: state.data
-    }),
-    dispatch => ({
 
-    })
-)(App);
-// export default App;
+export default App;

@@ -4,9 +4,7 @@ import AddTask from './AddTask';
 class TaskPanel extends Component {
     render() {
         return(
-            <div className="col-md-8">
-                <AddTask />
-            </div>
+            <AddTask />
         )
     }
 }

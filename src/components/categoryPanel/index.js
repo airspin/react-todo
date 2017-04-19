@@ -11,15 +11,12 @@ class CategoryPanel extends Component {
         const placeholder='Enter category title';
         const btnName = 'Add';
         return(
-            <div className="col-md-4">
+            <div>
                 <AddCategory
                     placeholder={placeholder}
                     btnName={btnName}
                 />
-                <CategoryList categories={this.props.categories}>
-                    <h1>123213</h1>
-                </CategoryList>
-
+                <CategoryList categories={this.props.categories} />
             </div>
         )
     }

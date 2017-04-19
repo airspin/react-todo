@@ -51,7 +51,9 @@ const initialState = {
             category: 1,
             isCompleted: false
         },
-    }
+    },
+
+    activeCat: null
 };
 
 export default function data (state = initialState, action) {

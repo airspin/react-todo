@@ -1,4 +1,6 @@
 import React , { Component } from 'react';
+import { connect } from 'react-redux';
+import { changeActiveCatAction } from '../../actions/changeActiveCatAction'
 import './css/CategoryItem.css';
 
 let cnt = 0;
@@ -7,12 +9,12 @@ let cnt = 0;
 class CategoryItem extends Component {
     constructor(props){
         super(props);
-        this.state = { isClosed: true, isActive: false}
+        this.state = { isClosed: true};
         this.chi = new Map();
     }
 
-    toggleList = () => {
-        // const isClosed = !this.state.isClosed;
+    toggleList = (e) => {
+        e.stopPropagation();
         if(!this.state.isClosed) {
             this.close();
         } else {
@@ -20,8 +22,10 @@ class CategoryItem extends Component {
         }
     }
 
-    toggleAtive = () => {
-        this.setState({isActive:!this.state.isActive})
+    toggleActive = (id) => {
+        console.log(id);
+        console.log(this.props.dataStore);
+        this.props.onSelectCat(id)
     }
 
     close = () => {
@@ -35,7 +39,7 @@ class CategoryItem extends Component {
 
 
     _renderChild(categories) {
-
+        console.log(categories);
         return (
             <ul className={"pure-list" + (this.state.isClosed ? ' hidden-list' : '')} >
                 {
@@ -48,11 +52,11 @@ class CategoryItem extends Component {
 
     render() {
         const {subCat, name, id} = this.props.category;
-        console.log(`Render item ${id} count ${++cnt}`);
+        // console.log(`Render item ${id} count ${++cnt}`);
+        console.log(subCat);
         return (
             <li>
-
-                <span className={"list-group-item task-item" + (this.state.isActive ? " active" : "")} onClick={this.toggleAtive}>
+                <span className={"list-group-item task-item" + (this.props.activeCat.id === id ? " active" : "")} onClick={()=>this.toggleActive(id)}>
                     {subCat && subCat.length &&
                     <span className="pull-left padd-right-sm show-subcat-btn" onClick={this.toggleList}>
                             <i className="fa fa-chevron-down" aria-hidden="true"></i>
@@ -67,11 +71,30 @@ class CategoryItem extends Component {
                         <i className="fa fa-plus-square-o addBtn" aria-hidden="true"></i>
                     </span>
                 </span>
-
                 {subCat && subCat.length && !this.state.isClosed && this._renderChild(subCat)}
             </li>
         )
     }
 }
 
-export default CategoryItem;
+
+const mapStateToProps = (state) => {
+    return {
+        dataStore: state.data,
+        activeCat: state.activeCat
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onSelectCat: (id)=>{
+            dispatch(changeActiveCatAction(id))
+        }
+    }
+}
+
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(CategoryItem);

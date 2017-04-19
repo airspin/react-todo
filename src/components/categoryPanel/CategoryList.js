@@ -44,7 +44,7 @@ class CategoryList extends Component {
                 <div className="col-md-12 fixed-height">
                     <ul className="pure-list">
                         {categories.map(cat =>
-                            <CategoryItem key={cat.id} category={cat}/>
+                            <CategoryItem key={cat.id} category={cat} isActivre={cat.id === active.id}/>
                         )}
                     </ul>
                 </div>

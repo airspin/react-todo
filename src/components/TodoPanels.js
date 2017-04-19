@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import CategoryPanel from './todoPanels/categoryPanel/CategoryPanel';
-import TaskPanel from './todoPanels/taskPanel/TaskPanel';
+import CategoryPanel from './categoryPanel/CategoryPanel';
+import TaskPanel from './taskPanel/TaskPanel';
 
 class TodoPanels extends Component {
     render() {
