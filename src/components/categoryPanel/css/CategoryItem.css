@@ -18,6 +18,13 @@
     transition: max-height 0.15s ease-out;
 }
 
+.pure-list .show-subcat-btn {
+    min-width: 8%;
+    min-height: 1px;
+    display: block;
+    float: left;
+}
+
 .task-item .task-title{
     min-width: 40%;
     float: left;

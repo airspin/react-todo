@@ -56,11 +56,11 @@ class CategoryItem extends Component {
         return (
             <li>
                 <span className={"list-group-item task-item" + (activeCat === id ? " active" : "")} onClick={()=>toggleActive(id)}>
-                    {myChildren && myChildren.length &&
                     <span className="pull-left padd-right-sm show-subcat-btn" onClick={this.toggleList}>
+                        {myChildren && myChildren.length &&
                             <i className="fa fa-chevron-down" aria-hidden="true"></i>
-                        </span>
-                    }
+                        }
+                    </span>
                     <span className="task-title">
                         {name} &nbsp;
                     </span>
