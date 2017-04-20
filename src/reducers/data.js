@@ -3,32 +3,32 @@ const initialState = {
         1:{
             name:'Работа',
             id:1,
-            parent:[]
+            parent:null
         },
         2:{
             name:'Спорт',
             id:2,
-            parent:[]
+            parent:null
         },
         3:{
             name:'Обучение',
             id:3,
-            parent:[5]
+            parent:5
         },
         4:{
             name:'Отдых',
             id:4,
-            parent:[]
+            parent:3
         },
         5:{
             name:'Командировки',
             id:5,
-            parent:[1]
+            parent:1
         },
         6:{
             name:'Покупки',
             id:6,
-            parent:[]
+            parent:null
         }
     },
 
@@ -60,6 +60,8 @@ export default function data (state = initialState, action) {
     switch (action.type){
         case 'GET_DATA':
             return state
+        case 'CHANGE_ACTIVE_CAT':
+            return {...state, activeCat: action.payload}
         default:
             return state
     }

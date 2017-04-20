@@ -1,6 +1,4 @@
 import React , { Component } from 'react';
-import { connect } from 'react-redux';
-import { changeActiveCatAction } from '../../actions/changeActiveCatAction'
 import './css/CategoryItem.css';
 
 let cnt = 0;
@@ -22,11 +20,6 @@ class CategoryItem extends Component {
         }
     }
 
-    toggleActive = (id) => {
-        console.log(id);
-        console.log(this.props.dataStore);
-        this.props.onSelectCat(id)
-    }
 
     close = () => {
         if(!this.state.isClosed) {
@@ -38,26 +31,32 @@ class CategoryItem extends Component {
     }
 
 
-    _renderChild(categories) {
-        console.log(categories);
+    _renderChild(categories,children,activeCat,toggleActive) {
+        console.log(categories,'Suuuub');
         return (
             <ul className={"pure-list" + (this.state.isClosed ? ' hidden-list' : '')} >
                 {
                     categories.map(
-                        (cat, i) => <CategoryItem ref={ r => {this.chi.set(cat.id, r);} } category={cat} key={cat.id}/> )
+                        (cat, i) => <CategoryItem ref={ r => {this.chi.set(cat.id, r);} } isActive={activeCat === cat.id}
+                                                  category={cat} key={cat.id} activeCat={activeCat} children={children} toggleActive={toggleActive}/> )
                 }
             </ul>
         );
     }
 
     render() {
-        const {subCat, name, id} = this.props.category;
+        const {activeCat,toggleActive} = this.props;
+        const { id,name} = this.props.category;
+        const children = this.props.children;
+        const myChildren = children[id];
+        const { rootCat } = this.props;
+        console.log(this.props,'iteeem');
         // console.log(`Render item ${id} count ${++cnt}`);
-        console.log(subCat);
+        console.log(`subCat ${this.props.isActive}`);
         return (
             <li>
-                <span className={"list-group-item task-item" + (this.props.activeCat.id === id ? " active" : "")} onClick={()=>this.toggleActive(id)}>
-                    {subCat && subCat.length &&
+                <span className={"list-group-item task-item" + (activeCat === id ? " active" : "")} onClick={()=>toggleActive(id)}>
+                    {myChildren && myChildren.length &&
                     <span className="pull-left padd-right-sm show-subcat-btn" onClick={this.toggleList}>
                             <i className="fa fa-chevron-down" aria-hidden="true"></i>
                         </span>
@@ -71,30 +70,10 @@ class CategoryItem extends Component {
                         <i className="fa fa-plus-square-o addBtn" aria-hidden="true"></i>
                     </span>
                 </span>
-                {subCat && subCat.length && !this.state.isClosed && this._renderChild(subCat)}
+                {myChildren && myChildren.length && !this.state.isClosed && this._renderChild(myChildren,children,activeCat,toggleActive)}
             </li>
         )
     }
 }
 
-
-const mapStateToProps = (state) => {
-    return {
-        dataStore: state.data,
-        activeCat: state.activeCat
-    }
-}
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        onSelectCat: (id)=>{
-            dispatch(changeActiveCatAction(id))
-        }
-    }
-}
-
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(CategoryItem);
+export default CategoryItem;
