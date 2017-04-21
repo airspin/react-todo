@@ -1,4 +1,5 @@
 import { loadCategoriesSuccess } from './categories';
+import { loadTasksSuccess } from './tasks';
 
 export const INITIAL_STATE_REQUEST = 'INITIAL_STATE_REQUEST';
 export const INITIAL_STATE_SUCCESS = 'INITIAL_STATE_SUCCESS';
@@ -72,6 +73,7 @@ export const loadInitialState = () => {
             setTimeout(() => {
                 console.log('loading data');
                 dispatch(loadCategoriesSuccess(todoListData.categories));
+                dispatch(loadTasksSuccess(todoListData.tasks));
                 dispatch(initialStateSuccess(todoListData));
 
                 //dispatch(loadTasksSuccess(todoListData.tasks));
