@@ -3,15 +3,16 @@ import ReactDOM from 'react-dom';
 //
 import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import { loadInitialState } from './actions/app';
 import { createStore, applyMiddleware } from 'redux';
-// import thunk from 'redux-thunk';
+import thunk from 'redux-thunk';
 import App from './App';
 import reducer from './reducers';
 import './index.css';
 
 
-const store = createStore(reducer,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
-
+const store = createStore(reducer,composeWithDevTools(applyMiddleware(thunk)));
+store.dispatch(loadInitialState());
 // ReactDOM.render(
 //     <App />,
 //

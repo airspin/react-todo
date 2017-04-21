@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 // import s from './style.css';
 
 import { connect } from 'react-redux';
-import { changeActiveCatAction } from '../../actions/changeActiveCatAction'
-
+import { changeActiveCatAction } from '../../actions/categories'
 import CategoryItem from './CategoryItem';
 
 
@@ -35,13 +34,10 @@ import CategoryItem from './CategoryItem';
 //     console.log(tree);
 // };
 
-
-
-
 class CategoryList extends Component {
     toggleActive = (id) => {
-        console.log(`ta ${id}`)
-        const activeCat = this.props.data.activeCat;
+        console.log(`ta ${id}`);
+        const activeCat = this.props.activeCat;
         if (id !== activeCat) {
             this.props.onSelectCat(id)
         } else {
@@ -50,7 +46,7 @@ class CategoryList extends Component {
     }
     render() {
         const { rootCat,children }  = this.props.data;
-        const activeCat = this.props.data.activeCat;
+        const activeCat = this.props.activeCat;
         console.log('render');
         console.log(this.props);
         return(
@@ -69,10 +65,12 @@ class CategoryList extends Component {
     }
 }
 
-function catSelector (state) {
+function catSelector (categories) {
+    if (!categories) {
+        return null;
+    }
     let rootCat=[];
     let children={};
-    let categories = state.data.categories;
     Object.keys(categories).map((catId) => {
         let parent = categories[catId].parent;
         let category = categories[catId];
@@ -85,17 +83,16 @@ function catSelector (state) {
     return (
         {
             rootCat: rootCat,
-            children: children,
-            activeCat: state.data.activeCat
+            children: children
         }
     )
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({categories}) => {
     return {
-        data:  catSelector(state),
+        data:  catSelector(categories.items),
+        activeCat: categories.activeCat
     }
-   ;
 }
 
 const mapDispatchToProps = (dispatch, getState) => {
