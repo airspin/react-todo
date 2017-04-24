@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import ListPageHeader from './components/ListPageHeader'
+import ListPageHeader from './components/header/index'
 import ProgrBar from './components/progressBar';
 import TaskPanel from './components/taskPanel';
 import CategoryPanel from './components/categoryPanel';

@@ -1,5 +1,5 @@
 import { loadCategoriesSuccess } from './categories';
-import { loadTasksSuccess } from './tasks';
+import { loadTasksSuccess } from '../components/taskPanel/actions/tasks';
 
 export const INITIAL_STATE_REQUEST = 'INITIAL_STATE_REQUEST';
 export const INITIAL_STATE_SUCCESS = 'INITIAL_STATE_SUCCESS';
@@ -46,23 +46,59 @@ const todoListData = {
 
     tasks: {
         1: {
-            name: 'task 1',
+            name: 'task 1 cat 1',
             id: 1,
             category: 1,
             isCompleted: false
         },
         2: {
-            name: 'task 1',
+            name: 'task 2 cat 1',
             id: 2,
             category: 1,
             isCompleted: false
         },
         3: {
-            name: 'task 1',
+            name: 'task 3 cat 1',
             id: 3,
             category: 1,
             isCompleted: false
         },
+        4: {
+            name: 'task 1 cat 2',
+            id: 4,
+            category: 2,
+            isCompleted: false
+        },
+        5: {
+            name: 'task 2 cat 2',
+            id: 5,
+            category: 2,
+            isCompleted: false
+        },
+        6: {
+            name: 'task 3 cat 2',
+            id: 6,
+            category: 2,
+            isCompleted: false
+        },
+        7: {
+            name: 'task 1 cat 3',
+            id: 7,
+            category: 3,
+            isCompleted: false
+        },
+        8: {
+            name: 'task 2 cat 3',
+            id: 8,
+            category: 3,
+            isCompleted: false
+        },
+        9: {
+            name: 'task 3 cat 3',
+            id: 9,
+            category: 3,
+            isCompleted: false
+        }
     },
 };
 

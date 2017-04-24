@@ -1,7 +1,6 @@
 import  { combineReducers } from 'redux';
-//import data from './data';
 import categories from './categories';
-import tasks from './tasks'
+import tasks from '../components/taskPanel/reducers/tasks'
 import inited from './app';
 
 export default combineReducers({
