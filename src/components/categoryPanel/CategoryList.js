@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 // import s from './style.css';
 
 import { connect } from 'react-redux';
-import { changeActiveCatAction } from '../../actions/categories'
+import { changeActiveCatAction } from './actions/categories'
 import CategoryItem from './CategoryItem';
 
 
@@ -34,7 +34,7 @@ import CategoryItem from './CategoryItem';
 //     console.log(tree);
 // };
 
-class CategoryList extends Component {
+class CategoryList extends PureComponent {
     toggleActive = (id) => {
         console.log(`ta ${id}`);
         const activeCat = this.props.activeCat;
@@ -65,10 +65,14 @@ class CategoryList extends Component {
     }
 }
 
+let cacheCategories = null;
+
 function catSelector (categories) {
     if (!categories) {
         return null;
     }
+
+
     let rootCat=[];
     let children={};
     Object.keys(categories).map((catId) => {
@@ -79,13 +83,16 @@ function catSelector (categories) {
         } else {
             rootCat.push(category)
         }
-    })
-    return (
-        {
+    });
+
+    if(!cacheCategories) {
+        cacheCategories = {
             rootCat: rootCat,
             children: children
-        }
-    )
+        };
+    }
+
+    return cacheCategories;
 }
 
 const mapStateToProps = ({categories}) => {

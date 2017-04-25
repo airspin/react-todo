@@ -16,26 +16,22 @@ class TaskPanel extends Component {
 }
 
 
-// byActiveCat
-// byName
-// byComplete
-
 
 const tasksSelector = (tasks) => {
     let tasksArr = Object.values(tasks.items) || [];
-    let filter = tasks.filter;
-    if (filter.byActiveCat) {
-        tasksArr = tasksArr.filter((obj)=>obj.category==filter.byActiveCat)
+    let filters = tasks.filters;
+    if (filters.byActiveCat) {
+        tasksArr = tasksArr.filter((obj)=>obj.category===filters.byActiveCat);
     }
-    if (filter.byName) {
-        tasksArr = tasksArr.filter((obj)=>obj.name==filter.byName)
+    if (filters.byName) {
+        tasksArr = tasksArr.filter((obj)=>~obj.name.indexOf(filters.byName))
     }
-    if (filter.byComplete) {
+    if (filters.byComplete) {
         tasksArr = tasksArr.filter((obj)=>obj.isCompleted)
     }
     return {
         items: tasksArr,
-        filter: tasks.filter
+        filters: tasks.filters
     };
 };
 

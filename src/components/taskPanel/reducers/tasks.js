@@ -1,24 +1,28 @@
 import * as Actions from '../actions/tasks';
-import * as ActionsCats from '../../../actions/categories';
+import * as ActionsCats from '../../categoryPanel/actions/categories';
+import * as ActionsFilter from '../../header/actions'
 
 const initialState = {
     items: null,
     activeTask: null,
-    filter: {
+    filters: {
         byActiveCat: null,
-        byName: null,
-        byComplete: null
+        byName: '',
+        byComplete: false
     }
 };
 
 export default function tasksReducer (state = initialState, action) {
-
+    const filters = state.filters;
     switch (action.type) {
         case Actions.LOAD_TASKS_SUCCESS:
             return {...state, items: action.payload.tasks};
         case ActionsCats.CHANGE_ACTIVE_CAT:
-            const filter = state.filter;
-            return {...state, filter: {...filter, byActiveCat:action.payload}};
+            return {...state, filters: {...filters, byActiveCat:action.payload}};
+        case ActionsFilter.CHANGE_FILTER_BY_COMPLETE:
+            return {...state, filters: {...filters, byComplete:!filters.byComplete}};
+        case ActionsFilter.CHANGE_FILTER_BY_NAME:
+            return {...state, filters: {...filters, byName:action.payload}};
         case Actions.CHANGE_TASK_STATE:
             const task = state.items[action.payload];
             const items = state.items;

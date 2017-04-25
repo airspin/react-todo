@@ -1,6 +1,3 @@
-/**
- * Created by Fedor_Mosyakin on 21.04.2017.
- */
 import * as Actions from '../actions/categories';
 
 const initialState = {
