@@ -1,4 +1,4 @@
-import * as Actions from '../actions/tasks';
+import * as Actions from '../actions/index';
 import * as ActionsCats from '../../categoryPanel/actions/categories';
 import * as ActionsFilter from '../../header/actions'
 
@@ -14,6 +14,7 @@ const initialState = {
 
 export default function tasksReducer (state = initialState, action) {
     const filters = state.filters;
+    const items = state.items;
     switch (action.type) {
         case Actions.LOAD_TASKS_SUCCESS:
             return {...state, items: action.payload.tasks};
@@ -25,8 +26,9 @@ export default function tasksReducer (state = initialState, action) {
             return {...state, filters: {...filters, byName:action.payload}};
         case Actions.CHANGE_TASK_STATE:
             const task = state.items[action.payload];
-            const items = state.items;
             return {...state, items: {...items, [action.payload]: {...task, isCompleted : !task.isCompleted }}};
+        case Actions.ADD_NEW_TASK:
+            return {...state,items: {...items,[action.payload.id]:action.payload}};
         default:
             return state
     }

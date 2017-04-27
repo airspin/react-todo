@@ -15,11 +15,18 @@ class ProgrBar extends Component {
             currentCatLength = currentCatItems.length;
         }
         completedItemsLength = currentCatItems.filter((obj)=>obj.isCompleted===true).length;
-        const progrBarVal = completedItemsLength*100/currentCatLength;
+        const progrBarVal = currentCatLength ? completedItemsLength*100/currentCatLength : 0;
         return(
             <Row className="show-grid">
                 <Col md={12}>
-                    <ProgressBar now={progrBarVal} />
+                    <ProgressBar
+                        bsStyle={
+                            progrBarVal <= 30 ? 'danger' :
+                            progrBarVal <= 60 ? 'warning' :
+                            progrBarVal < 100 ? 'info' : 'success'
+                        }
+                        now={progrBarVal}
+                    />
                 </Col>
             </Row>
         )
@@ -29,6 +36,6 @@ class ProgrBar extends Component {
 const mapStateToProps = (state)=> ({
     tasks: state.tasks.items,
     activeCat: state.categories.activeCat
-})
+});
 
 export default connect(mapStateToProps)(ProgrBar);

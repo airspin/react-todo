@@ -2,9 +2,9 @@ import React, { PureComponent } from 'react';
 // import s from './style.css';
 
 import { connect } from 'react-redux';
-import { changeActiveCatAction } from './actions/categories'
+import { changeActiveCatAction, deleteCategory } from './actions/categories'
 import CategoryItem from './CategoryItem';
-
+import { sortArrOfObj } from '../../utils/helpers';
 
 // const makeTree = (obj) => {
 //     var tree = [];
@@ -44,6 +44,9 @@ class CategoryList extends PureComponent {
             this.props.onSelectCat(null)
         }
     }
+    deleteCat = (id) => {
+        this.props.onDeleteCat(id);
+    }
     render() {
         const { rootCat,children }  = this.props.data;
         const activeCat = this.props.activeCat;
@@ -55,8 +58,13 @@ class CategoryList extends PureComponent {
                     <ul className="pure-list">
                         {
                             rootCat.map((cat) =>
-                                <CategoryItem key={cat.id} children={children} category={cat} activeCat={activeCat}
-                                              toggleActive={this.toggleActive} />)
+                                <CategoryItem key={cat.id}
+                                              children={children}
+                                              category={cat}
+                                              activeCat={activeCat}
+                                              toggleActive={this.toggleActive}
+                                              deleteCat={this.deleteCat}
+                                />)
                         }
                     </ul>
                 </div>
@@ -71,11 +79,10 @@ function catSelector (categories) {
     if (!categories) {
         return null;
     }
-
-
     let rootCat=[];
     let children={};
-    Object.keys(categories).map((catId) => {
+    const sorter = sortArrOfObj('id','dec');
+    Object.keys(categories).forEach((catId) => {
         let parent = categories[catId].parent;
         let category = categories[catId];
         if (parent) {
@@ -85,7 +92,10 @@ function catSelector (categories) {
         }
     });
 
-    if(!cacheCategories) {
+    rootCat.sort(sorter);
+
+    // if(!cacheCategories) {
+    if(1) {
         cacheCategories = {
             rootCat: rootCat,
             children: children
@@ -104,8 +114,11 @@ const mapStateToProps = ({categories}) => {
 
 const mapDispatchToProps = (dispatch, getState) => {
     return {
-        onSelectCat: (id)=> {
+        onSelectCat: (id) => {
             dispatch(changeActiveCatAction(id))
+        },
+        onDeleteCat: (id) => {
+            dispatch(deleteCategory(id))
         }
     }
 }

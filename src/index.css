@@ -194,4 +194,5 @@ body {
 
 .fixed-height {
   height: 70vh;
+  overflow-y: auto;
 }

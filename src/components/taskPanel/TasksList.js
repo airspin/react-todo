@@ -1,31 +1,30 @@
 import React, { Component } from 'react';
-import { changeActiveTask } from './actions/tasks';
+
+import './css/index.css';
 
 
 class TasksList extends Component {
 
     render() {
         const tasks = this.props.tasks;
-        const cahangeCompleteState = (id) => {
-
-        };
         return (
-            <div className="row">
-                <ul className="pure-list">
+            <div className="col-md-12">
+                <ul className="pure-list tasks-list fixed-height">
                     { tasks.map((task) =>
                         <li key={task.id}>
-                            <div>
-                                <div className="checkbox">
-                                    <label>
-                                        <input
-                                            type="checkbox"
-                                            checked={task.isCompleted}
-                                            onClick={()=>this.props.onCompleteChange(task.id)}
-                                        />
-                                        {task.name}
-                                    </label>
-                                </div>
+                            <div className="checkbox task-title">
+                                <label>
+                                    <input
+                                        type="checkbox"
+                                        checked={task.isCompleted}
+                                        onClick={()=>this.props.onCompleteChange(task.id)}
+                                    />
+                                    {task.name}
+                                </label>
                             </div>
+                            <span className="btn-edit-task">
+                                <i className="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </span>
                         </li>
                     )}
                 </ul>

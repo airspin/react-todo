@@ -1,0 +1,35 @@
+.pure-list.tasks-list li {
+    height: 100px;
+    border-style: solid;
+    border-color: #eeeeee;
+    border-width: 1px;
+    border-bottom-width: 0px;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+}
+
+.pure-list.tasks-list li:last-child {
+    border-bottom-width: 1px;
+    border-bottom-right-radius:3px ;
+    border-bottom-left-radius:3px ;
+}
+
+.pure-list.tasks-list li:first-child {
+    border-top-right-radius:3px ;
+    border-top-left-radius:3px ;
+}
+
+.tasks-list .task-title {
+    width: 95%;
+}
+
+.tasks-list .btn-edit-task {
+    border: 1px solid #eeeeee;
+    border-radius: 5px;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    padding: 2px;
+    cursor: pointer;
+}

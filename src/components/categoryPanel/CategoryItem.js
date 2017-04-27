@@ -1,8 +1,6 @@
 import React , { Component } from 'react';
 import './css/CategoryItem.css';
 
-let cnt = 0;
-
 
 class CategoryItem extends Component {
     constructor(props){
@@ -49,9 +47,7 @@ class CategoryItem extends Component {
         const { id,name} = this.props.category;
         const children = this.props.children;
         const myChildren = children[id];
-        const { rootCat } = this.props;
         console.log(this.props,'iteeem');
-        // console.log(`Render item ${id} count ${++cnt}`);
         console.log(`subCat ${this.props.isActive}`);
         return (
             <li>
@@ -64,9 +60,9 @@ class CategoryItem extends Component {
                     <span className="task-title">
                         {name} &nbsp;
                     </span>
-                    <i className="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        <i className="fa fa-pencil-square-o" aria-hidden="true"></i>
                     <span className="pull-right">
-                        <i className="fa fa-trash-o" aria-hidden="true"></i>
+                        <i className="fa fa-trash-o" aria-hidden="true" onClick={()=>(this.props.deleteCat(id))}></i>
                         <i className="fa fa-plus-square-o addBtn" aria-hidden="true"></i>
                     </span>
                 </span>

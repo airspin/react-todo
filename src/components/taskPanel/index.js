@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-import AddTask from './AddTask';
+import AddTaskContainer from './addTask/AddTaskContainer';
 import TasksList from './TasksList';
-import { changeTaskState } from './actions/tasks';
+import { changeTaskState } from './actions/index';
 import { connect } from 'react-redux';
+import { sortArrOfObj } from '../../utils/helpers';
 
 class TaskPanel extends Component {
     render() {
         return(
-            <div>
-                <AddTask />
+            <div className="row">
+                <AddTaskContainer />
                 <TasksList tasks={this.props.tasks.items} onCompleteChange={this.props.changeTaskState}/>
             </div>
         )
@@ -20,6 +21,7 @@ class TaskPanel extends Component {
 const tasksSelector = (tasks) => {
     let tasksArr = Object.values(tasks.items) || [];
     let filters = tasks.filters;
+    const sorter = sortArrOfObj('id','dec');
     if (filters.byActiveCat) {
         tasksArr = tasksArr.filter((obj)=>obj.category===filters.byActiveCat);
     }
@@ -29,6 +31,7 @@ const tasksSelector = (tasks) => {
     if (filters.byComplete) {
         tasksArr = tasksArr.filter((obj)=>obj.isCompleted)
     }
+    tasksArr = tasksArr.sort(sorter);
     return {
         items: tasksArr,
         filters: tasks.filters

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import AddCategory from '../AddItem';
+import AddCategoryContainer from './AddCategory/AddCategoryContainer';
 import CategoryList from './CategoryList';
-
-
 
 
 
@@ -12,7 +10,7 @@ class CategoryPanel extends Component {
         const btnName = 'Add';
         return(
             <div>
-                <AddCategory
+                <AddCategoryContainer
                     placeholder={placeholder}
                     btnName={btnName}
                 />

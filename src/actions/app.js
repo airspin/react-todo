@@ -1,5 +1,5 @@
 import { loadCategoriesSuccess } from '../components/categoryPanel/actions/categories';
-import { loadTasksSuccess } from '../components/taskPanel/actions/tasks';
+import { loadTasksSuccess } from '../components/taskPanel/actions/index';
 
 export const INITIAL_STATE_REQUEST = 'INITIAL_STATE_REQUEST';
 export const INITIAL_STATE_SUCCESS = 'INITIAL_STATE_SUCCESS';
