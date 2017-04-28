@@ -15,6 +15,16 @@ const initialState = {
 export default function tasksReducer (state = initialState, action) {
     const filters = state.filters;
     const items = state.items;
+    const removeTasksFromSubcat = (catIdsToRemove,items) => {
+        let newItems = Object.assign({}, items);
+        Object.values(items).forEach(task => {
+            catIdsToRemove.forEach(id => {
+                if (task.category === id)
+                    delete newItems[task.id]
+            })
+        });
+        return newItems
+    };
     switch (action.type) {
         case Actions.LOAD_TASKS_SUCCESS:
             return {...state, items: action.payload.tasks};
@@ -29,6 +39,9 @@ export default function tasksReducer (state = initialState, action) {
             return {...state, items: {...items, [action.payload]: {...task, isCompleted : !task.isCompleted }}};
         case Actions.ADD_NEW_TASK:
             return {...state,items: {...items,[action.payload.id]:action.payload}};
+        case Actions.TASK_REMOVE_BY_CATEGORY:
+            return {...state, items: removeTasksFromSubcat(action.payload,items)};
+
         default:
             return state
     }

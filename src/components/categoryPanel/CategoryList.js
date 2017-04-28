@@ -2,10 +2,10 @@ import React, { PureComponent } from 'react';
 // import s from './style.css';
 
 import { connect } from 'react-redux';
-import { changeActiveCatAction, deleteCategory } from './actions/categories'
+import { changeActiveCatAction, removeCategory, addNewCategoryItem } from './actions/categories'
 import CategoryItem from './CategoryItem';
 import { sortArrOfObj } from '../../utils/helpers';
-
+import { Modal, Button } from 'react-bootstrap';
 // const makeTree = (obj) => {
 //     var tree = [];
 //     // console.info(tree,'before');
@@ -35,6 +35,26 @@ import { sortArrOfObj } from '../../utils/helpers';
 // };
 
 class CategoryList extends PureComponent {
+    constructor(props){
+        super(props);
+        this.state={
+            showModal: false,
+            subcatName:'',
+        }
+    }
+    changeNameText = (e)=>{
+        const val = e.target.value;
+        this.setState({
+            subcatName:val
+        })
+    }
+    close = () => {
+        this.setState({ showModal: false });
+    }
+    openModalAddSubcat = (e,id) => {
+        e.stopPropagation();
+        this.setState({ showModal: true });
+    }
     toggleActive = (id) => {
         console.log(`ta ${id}`);
         const activeCat = this.props.activeCat;
@@ -44,16 +64,40 @@ class CategoryList extends PureComponent {
             this.props.onSelectCat(null)
         }
     }
-    deleteCat = (id) => {
-        this.props.onDeleteCat(id);
+    removeCat = (e,id) => {
+        e.stopPropagation();
+        this.props.onRemoveCat(id);
+    }
+    addCategory = (name,parent)=>{
+        let task = {
+            name: name,
+            id: Date.now(),
+            parent: parent
+        };
+        this.props.addNewCategory(task);
     }
     render() {
         const { rootCat,children }  = this.props.data;
         const activeCat = this.props.activeCat;
-        console.log('render');
-        console.log(this.props);
+        console.log('CategoriesList render');
+        // console.log(this.props);
         return(
             <div className="row">
+                <Modal show={this.state.showModal} onHide={this.close}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>New subcategory</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <input value={this.state.subcatName}
+                               className="form-control"
+                               onChange={this.changeNameText}
+                        />
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button bsStyle="primary" onClick={this.close}>Cancel</Button>
+                        <Button bsStyle="success" onClick={this.close}>Save</Button>
+                    </Modal.Footer>
+                </Modal>
                 <div className="col-md-12 fixed-height">
                     <ul className="pure-list">
                         {
@@ -63,7 +107,8 @@ class CategoryList extends PureComponent {
                                               category={cat}
                                               activeCat={activeCat}
                                               toggleActive={this.toggleActive}
-                                              deleteCat={this.deleteCat}
+                                              removeCat={this.removeCat}
+                                              addSubcat={this.openModalAddSubcat}
                                 />)
                         }
                     </ul>
@@ -114,12 +159,9 @@ const mapStateToProps = ({categories}) => {
 
 const mapDispatchToProps = (dispatch, getState) => {
     return {
-        onSelectCat: (id) => {
-            dispatch(changeActiveCatAction(id))
-        },
-        onDeleteCat: (id) => {
-            dispatch(deleteCategory(id))
-        }
+        onSelectCat: (id) => dispatch(changeActiveCatAction(id)),
+        onRemoveCat: (id) => dispatch(removeCategory(id)),
+        addNewCategory: (category) => dispatch(addNewCategoryItem(category))
     }
 }
 

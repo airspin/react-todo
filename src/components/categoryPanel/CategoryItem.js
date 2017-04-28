@@ -18,7 +18,6 @@ class CategoryItem extends Component {
         }
     }
 
-
     close = () => {
         if(!this.state.isClosed) {
             let child = Array.from(this.chi.values());
@@ -47,8 +46,10 @@ class CategoryItem extends Component {
         const { id,name} = this.props.category;
         const children = this.props.children;
         const myChildren = children[id];
-        console.log(this.props,'iteeem');
-        console.log(`subCat ${this.props.isActive}`);
+        console.log('CategoryItem render');
+
+        // console.log(this.props,'iteeem');
+        // console.log(`subCat ${this.props.isActive}`);
         return (
             <li>
                 <span className={"list-group-item task-item" + (activeCat === id ? " active" : "")} onClick={()=>toggleActive(id)}>
@@ -62,8 +63,8 @@ class CategoryItem extends Component {
                     </span>
                         <i className="fa fa-pencil-square-o" aria-hidden="true"></i>
                     <span className="pull-right">
-                        <i className="fa fa-trash-o" aria-hidden="true" onClick={()=>(this.props.deleteCat(id))}></i>
-                        <i className="fa fa-plus-square-o addBtn" aria-hidden="true"></i>
+                        <i className="fa fa-trash-o" aria-hidden="true" onClick={(e)=>(this.props.removeCat(e,id))} />
+                        <i className="fa fa-plus-square-o addBtn" aria-hidden="true" onClick={(e)=>this.props.addSubcat(e)} />
                     </span>
                 </span>
                 {myChildren && myChildren.length && !this.state.isClosed && this._renderChild(myChildren,children,activeCat,toggleActive)}
