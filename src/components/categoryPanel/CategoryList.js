@@ -2,7 +2,8 @@ import React, { PureComponent } from 'react';
 // import s from './style.css';
 
 import { connect } from 'react-redux';
-import { changeActiveCatAction, removeCategory, addNewCategoryItem } from './actions/categories'
+import { changeActiveCatAction, removeCategory, addNewCategoryItem } from './actions/categories';
+import { hideModal, showModal } from '../ModalWindow/actions';
 import CategoryItem from './CategoryItem';
 import { sortArrOfObj } from '../../utils/helpers';
 import { Modal, Button } from 'react-bootstrap';
@@ -48,12 +49,19 @@ class CategoryList extends PureComponent {
             subcatName:val
         })
     }
-    close = () => {
-        this.setState({ showModal: false });
-    }
-    openModalAddSubcat = (e,id) => {
+    openModal = (e,id) => {
         e.stopPropagation();
-        this.setState({ showModal: true });
+        this.props.showModal({
+            modalType:'addSubcat',
+            modalProps:{
+                id:id,
+                onCancel:this.props.hideModal,
+                onSave:(name) => {
+                    this.addCategory(name,id);
+                    this.props.hideModal();
+                }
+            },
+        })
     }
     toggleActive = (id) => {
         console.log(`ta ${id}`);
@@ -69,12 +77,12 @@ class CategoryList extends PureComponent {
         this.props.onRemoveCat(id);
     }
     addCategory = (name,parent)=>{
-        let task = {
+        let cat = {
             name: name,
             id: Date.now(),
             parent: parent
         };
-        this.props.addNewCategory(task);
+        this.props.addNewCategory(cat);
     }
     render() {
         const { rootCat,children }  = this.props.data;
@@ -83,21 +91,6 @@ class CategoryList extends PureComponent {
         // console.log(this.props);
         return(
             <div className="row">
-                <Modal show={this.state.showModal} onHide={this.close}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>New subcategory</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <input value={this.state.subcatName}
-                               className="form-control"
-                               onChange={this.changeNameText}
-                        />
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button bsStyle="primary" onClick={this.close}>Cancel</Button>
-                        <Button bsStyle="success" onClick={this.close}>Save</Button>
-                    </Modal.Footer>
-                </Modal>
                 <div className="col-md-12 fixed-height">
                     <ul className="pure-list">
                         {
@@ -108,7 +101,8 @@ class CategoryList extends PureComponent {
                                               activeCat={activeCat}
                                               toggleActive={this.toggleActive}
                                               removeCat={this.removeCat}
-                                              addSubcat={this.openModalAddSubcat}
+                                              openModal={this.openModal}
+                                              hideModal={this.props.hideModal}
                                 />)
                         }
                     </ul>
@@ -161,7 +155,9 @@ const mapDispatchToProps = (dispatch, getState) => {
     return {
         onSelectCat: (id) => dispatch(changeActiveCatAction(id)),
         onRemoveCat: (id) => dispatch(removeCategory(id)),
-        addNewCategory: (category) => dispatch(addNewCategoryItem(category))
+        addNewCategory: (category) => dispatch(addNewCategoryItem(category)),
+        showModal: (modaldata) => dispatch(showModal(modaldata)),
+        hideModal: () => dispatch(hideModal())
     }
 }
 

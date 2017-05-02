@@ -28,21 +28,21 @@ class CategoryItem extends Component {
     }
 
 
-    _renderChild(categories,children,activeCat,toggleActive) {
+    _renderChild(categories,children,activeCat,toggleActive,removeCat,openModal) {
         console.log(categories,'Suuuub');
         return (
             <ul className={"pure-list" + (this.state.isClosed ? ' hidden-list' : '')} >
                 {
                     categories.map(
                         (cat, i) => <CategoryItem ref={ r => {this.chi.set(cat.id, r);} } isActive={activeCat === cat.id}
-                                                  category={cat} key={cat.id} activeCat={activeCat} children={children} toggleActive={toggleActive}/> )
+                                                  category={cat} key={cat.id} activeCat={activeCat} children={children} toggleActive={toggleActive} removeCat={removeCat} openModal={openModal}/> )
                 }
             </ul>
         );
     }
 
     render() {
-        const {activeCat,toggleActive} = this.props;
+        const {activeCat,toggleActive,removeCat,openModal} = this.props;
         const { id,name} = this.props.category;
         const children = this.props.children;
         const myChildren = children[id];
@@ -64,10 +64,10 @@ class CategoryItem extends Component {
                         <i className="fa fa-pencil-square-o" aria-hidden="true"></i>
                     <span className="pull-right">
                         <i className="fa fa-trash-o" aria-hidden="true" onClick={(e)=>(this.props.removeCat(e,id))} />
-                        <i className="fa fa-plus-square-o addBtn" aria-hidden="true" onClick={(e)=>this.props.addSubcat(e)} />
+                        <i className="fa fa-plus-square-o addBtn" aria-hidden="true" onClick={(e)=>this.props.openModal(e,id)} />
                     </span>
                 </span>
-                {myChildren && myChildren.length && !this.state.isClosed && this._renderChild(myChildren,children,activeCat,toggleActive)}
+                {myChildren && myChildren.length && !this.state.isClosed && this._renderChild(myChildren,children,activeCat,toggleActive,removeCat,openModal)}
             </li>
         )
     }

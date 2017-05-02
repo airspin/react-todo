@@ -5,6 +5,7 @@ import ProgrBar from './components/progressBar';
 import TaskPanel from './components/taskPanel';
 import CategoryPanel from './components/categoryPanel';
 import '../src/css/fontawesome/css/font-awesome.min.css';
+import ModalWindowContainer from "./components/ModalWindow/ModalWindowContainer";
 
 class App extends Component {
 
@@ -26,6 +27,7 @@ class App extends Component {
                         <TaskPanel />
                     </div>
                 </div>
+                <ModalWindowContainer/>
             </div>
         );
     }
