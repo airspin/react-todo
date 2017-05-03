@@ -11,9 +11,8 @@ class ModalWindowContainer extends Component {
                 {modals.map((modal,ind) =>
                     <ModalWindow
                         key={ind}
+                        modalParams={modal.modalParams}
                         modalType={modal.modalType}
-                        onCancel={modal.modalProps.onCancel}
-                        onSave={modal.modalProps.onSave}
                     />
                 )}
             </div>

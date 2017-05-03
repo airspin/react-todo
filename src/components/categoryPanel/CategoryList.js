@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 // import s from './style.css';
 
 import { connect } from 'react-redux';
@@ -6,7 +6,6 @@ import { changeActiveCatAction, removeCategory, addNewCategoryItem } from './act
 import { hideModal, showModal } from '../ModalWindow/actions';
 import CategoryItem from './CategoryItem';
 import { sortArrOfObj } from '../../utils/helpers';
-import { Modal, Button } from 'react-bootstrap';
 // const makeTree = (obj) => {
 //     var tree = [];
 //     // console.info(tree,'before');
@@ -35,7 +34,7 @@ import { Modal, Button } from 'react-bootstrap';
 //     console.log(tree);
 // };
 
-class CategoryList extends PureComponent {
+class CategoryList extends Component {
     constructor(props){
         super(props);
         this.state={
@@ -49,17 +48,29 @@ class CategoryList extends PureComponent {
             subcatName:val
         })
     }
-    openModal = (e,id) => {
+    addSubcatModal = (e,id) => {
         e.stopPropagation();
         this.props.showModal({
-            modalType:'addSubcat',
-            modalProps:{
-                id:id,
-                onCancel:this.props.hideModal,
-                onSave:(name) => {
-                    this.addCategory(name,id);
-                    this.props.hideModal();
-                }
+            modalType:'AddSubcat',
+            modalParams:{
+                id,
+                title: 'Add new subcategory',
+                templ: 'AddSubcat',
+                confirmBtnName: 'Add',
+                cancelBtnName: 'Cancel'
+            },
+        })
+    }
+    renameCatModal = (e,id) => {
+        e.stopPropagation();
+        this.props.showModal({
+            modalType:'RenameCat',
+            modalParams:{
+                id,
+                title: 'Rename category',
+                templ: 'RenameCat',
+                confirmBtnName: 'Rename',
+                cancelBtnName: 'Cancel'
             },
         })
     }
@@ -76,7 +87,7 @@ class CategoryList extends PureComponent {
         e.stopPropagation();
         this.props.onRemoveCat(id);
     }
-    addCategory = (name,parent)=>{
+    onConfirmBtn = (name,parent)=>{
         let cat = {
             name: name,
             id: Date.now(),
@@ -101,8 +112,8 @@ class CategoryList extends PureComponent {
                                               activeCat={activeCat}
                                               toggleActive={this.toggleActive}
                                               removeCat={this.removeCat}
-                                              openModal={this.openModal}
-                                              hideModal={this.props.hideModal}
+                                              addSubcatModal={this.addSubcatModal}
+                                              renameCatModal={this.renameCatModal}
                                 />)
                         }
                     </ul>

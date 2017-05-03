@@ -1,36 +1,52 @@
 import React, { Component } from 'react';
-
 import { Modal, Button } from 'react-bootstrap';
+import * as Templ from './templates';
+
+const templ = {
+    'AddSubcat': Templ.AddSubcat,
+    'RenameCat': Templ.RenameCat
+};
+
+console.log('TEMPLATE:',Templ);
 
 class ModalWindow extends Component {
-    constructor(props){
-        super(props);
-        this.state={
-            inputText:'',
+
+    onConfirmBtnClick = () => {
+        const connectedComponent = this.containedComponent.getWrappedInstance();
+
+        if(typeof connectedComponent.onConfirmBtn === 'function' ) {
+            connectedComponent.onConfirmBtn();
+        } else {
+            console.warn(`Component ${this.containedComponent.displayName} hasn't required method onConfirmBtn`);
         }
     }
-    changeInputText = (e)=>{
-        const val = e.target.value;
-        this.setState({
-            inputText:val
-        })
+
+    onCancelBtnClick = () => {
+        const connectedComponent = this.containedComponent.getWrappedInstance();
+
+        if(typeof connectedComponent.props.hideModal === 'function' ) {
+            connectedComponent.props.hideModal()
+        } else {
+            console.warn(`Component ${this.containedComponent.displayName} hasn't required method onCancelBtn`);
+        }
     }
+
     render(){
-        const inputText = this.state.inputText;
+        const params = this.props.modalParams;
+        const modalType = this.props.modalType;
+        const Content = templ[modalType];
+        console.log(templ);
         return(
-            <Modal show={!!this.props.modalType} onHide={this.props.onCancel}>
+            <Modal show={!!this.props.modalType} onHide={this.onCancelBtnClick}>
                 <Modal.Header closeButton>
-                    <Modal.Title>New subcategory</Modal.Title>
+                    <Modal.Title>{params.title}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <input value={this.state.inputText}
-                           className="form-control"
-                           onChange={this.changeInputText}
-                    />
+                    <Content ref={comp => { this.containedComponent = comp; } } params={params}/>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button bsStyle="primary" onClick={this.props.onCancel}>Cancel</Button>
-                    <Button bsStyle="success" onClick={() => this.props.onSave(inputText)}>Save</Button>
+                    <Button bsStyle="primary" onClick={this.onCancelBtnClick} >{params.cancelBtnName}</Button>
+                    <Button bsStyle="success" onClick={() => this.onConfirmBtnClick()} >{params.confirmBtnName}</Button>
                 </Modal.Footer>
             </Modal>
         )

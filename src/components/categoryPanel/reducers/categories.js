@@ -14,6 +14,12 @@ export default function categoriesReducer(state = initialState, action) {
         });
         return newItems
     };
+    const renameCat = (id,newName) => {
+        let newItems = Object.assign({}, items);
+        console.log(newItems[id]);
+        newItems[id].name = newName;
+        return newItems;
+    }
     switch (action.type) {
         case Actions.LOAD_CATEGORIES_SUCCESS:
             return {...state, items: action.payload.categories};
@@ -23,6 +29,8 @@ export default function categoriesReducer(state = initialState, action) {
             return {...state, items:{...items,[action.payload.id]:action.payload}};
         case Actions.CATEGORY_REMOVE_CHILD:
             return {...state, items: removeAllSubcat(action.payload,items)};
+        case Actions.RENAME_CATEGORY:
+            return {...state, items: renameCat(action.payload.id,action.payload.newName)};
         default:
             return state;
     }
