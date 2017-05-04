@@ -8,10 +8,10 @@ class RenameCat extends Component{
     constructor(props){
         super(props);
         this.state={
-            inputText:'',
+            inputText:this.props.params.catName,
+            inputHasErr: false
         }
     }
-
 
     changeInputText = (e)=>{
         const val = e.target.value;
@@ -24,15 +24,19 @@ class RenameCat extends Component{
         if(this.state.inputText) {
             this.props.renameCategory(this.props.params.id,this.state.inputText);
             this.props.hideModal();
+        } else {
+            this.setState({inputHasErr:true})
         }
     }
     render(){
         return(
-            <input value={this.state.inputText}
-                   className="form-control"
-                   onChange={this.changeInputText}
-            />
-
+            <div className={"form-group " + (this.state.inputHasErr ? "has-error" : "")}>
+                <input value={this.state.inputText}
+                       className="form-control"
+                       placeholder="Enter new name"
+                       onChange={this.changeInputText}
+                />
+            </div>
         )
     }
 }
@@ -50,7 +54,7 @@ const selectorFactory = (dispatch) => {
         const nextStateProps = {};
         const nextResult = {...actions, ...nextOwnProps, ...nextStateProps};
         if(!shallowEqual(result, nextResult)) {
-            // console.log('!!!!!Oh main god result changed!!!');
+            // console.log('!!!!!Oh my god, result changed!!!');
             result = nextResult;
         }
         return result;

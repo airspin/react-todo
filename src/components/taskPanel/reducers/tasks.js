@@ -1,4 +1,4 @@
-import * as Actions from '../actions/index';
+import * as Actions from '../actions';
 import * as ActionsCats from '../../categoryPanel/actions/categories';
 import * as ActionsFilter from '../../header/actions'
 
@@ -25,6 +25,11 @@ export default function tasksReducer (state = initialState, action) {
         });
         return newItems
     };
+    const removeTask = (id,items) => {
+        let newItems = Object.assign({}, items);
+        delete newItems[id];
+        return newItems;
+    };
     switch (action.type) {
         case Actions.LOAD_TASKS_SUCCESS:
             return {...state, items: action.payload.tasks};
@@ -41,7 +46,10 @@ export default function tasksReducer (state = initialState, action) {
             return {...state,items: {...items,[action.payload.id]:action.payload}};
         case Actions.TASK_REMOVE_BY_CATEGORY:
             return {...state, items: removeTasksFromSubcat(action.payload,items)};
-
+        case Actions.TASK_CHANGE_EDITMODE:
+            return {...state, activeTask:action.payload};
+        case Actions.TASK_REMOVE:
+            return {...state, items: removeTask(action.payload,items)};
         default:
             return state
     }

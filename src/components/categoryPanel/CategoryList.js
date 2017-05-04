@@ -61,15 +61,29 @@ class CategoryList extends Component {
             },
         })
     }
-    renameCatModal = (e,id) => {
+    renameCatModal = (e,id,name) => {
         e.stopPropagation();
         this.props.showModal({
             modalType:'RenameCat',
             modalParams:{
                 id,
+                catName:name,
                 title: 'Rename category',
                 templ: 'RenameCat',
                 confirmBtnName: 'Rename',
+                cancelBtnName: 'Cancel'
+            },
+        })
+    }
+    removeCatModal = (e,id) => {
+        e.stopPropagation();
+        this.props.showModal({
+            modalType:'RemoveCat',
+            modalParams:{
+                id,
+                title: 'Remove category',
+                templ: 'RemoveCat',
+                confirmBtnName: 'Yes',
                 cancelBtnName: 'Cancel'
             },
         })
@@ -82,10 +96,6 @@ class CategoryList extends Component {
         } else {
             this.props.onSelectCat(null)
         }
-    }
-    removeCat = (e,id) => {
-        e.stopPropagation();
-        this.props.onRemoveCat(id);
     }
     onConfirmBtn = (name,parent)=>{
         let cat = {
@@ -111,7 +121,7 @@ class CategoryList extends Component {
                                               category={cat}
                                               activeCat={activeCat}
                                               toggleActive={this.toggleActive}
-                                              removeCat={this.removeCat}
+                                              removeCat={this.removeCatModal}
                                               addSubcatModal={this.addSubcatModal}
                                               renameCatModal={this.renameCatModal}
                                 />)

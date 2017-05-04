@@ -19,7 +19,7 @@ export default function categoriesReducer(state = initialState, action) {
         console.log(newItems[id]);
         newItems[id].name = newName;
         return newItems;
-    }
+    };
     switch (action.type) {
         case Actions.LOAD_CATEGORIES_SUCCESS:
             return {...state, items: action.payload.categories};

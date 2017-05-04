@@ -24,12 +24,13 @@
     width: 95%;
 }
 
-.tasks-list .btn-edit-task {
+.tasks-list .task-btn {
     border: 1px solid #eeeeee;
     border-radius: 5px;
     width: 25px;
     height: 25px;
     text-align: center;
     padding: 2px;
+    margin-right: 10px;
     cursor: pointer;
 }

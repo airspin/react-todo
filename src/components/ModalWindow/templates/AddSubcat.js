@@ -13,6 +13,7 @@ class AddSubcat extends Component{
         super(props);
         this.state={
             inputText:'',
+            inputHasErr:false
         }
     }
 
@@ -33,14 +34,19 @@ class AddSubcat extends Component{
         if(cat.name) {
             this.props.addNewCategory(cat);
             this.props.hideModal();
+        } else {
+            this.setState({inputHasErr:true})
         }
     }
     render(){
         return(
-            <input value={this.state.inputText}
-                   className="form-control"
-                   onChange={this.changeInputText}
-            />
+            <div className={"form-group " + (this.state.inputHasErr ? "has-error" : "")}>
+                <input value={this.state.inputText}
+                       className="form-control"
+                       placeholder="Enter name"
+                       onChange={this.changeInputText}
+                />
+            </div>
 
         )
     }

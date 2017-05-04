@@ -22,8 +22,11 @@ class TasksList extends Component {
                                     {task.name}
                                 </label>
                             </div>
-                            <span className="btn-edit-task">
+                            <span className="task-btn btn-edit-task" onClick={()=>this.props.onEditBtn(task)}>
                                 <i className="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </span>
+                            <span className="task-btn btn-remove-task" onClick={()=>this.props.onRemoveBtn(task.id)}>
+                                <i className="fa fa-trash-o" aria-hidden="true"></i>
                             </span>
                         </li>
                     )}

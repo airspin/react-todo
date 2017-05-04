@@ -65,7 +65,7 @@ class CategoryItem extends Component {
                     <span className="task-title">
                         {name} &nbsp;
                     </span>
-                        <i className="fa fa-pencil-square-o" aria-hidden="true" onClick={(e)=>this.props.renameCatModal(e,id)} />
+                        <i className="fa fa-pencil-square-o" aria-hidden="true" onClick={(e)=>this.props.renameCatModal(e,id,name)} />
                     <span className="pull-right">
                         <i className="fa fa-trash-o" aria-hidden="true" onClick={(e)=>(this.props.removeCat(e,id))} />
                         <i className="fa fa-plus-square-o addBtn" aria-hidden="true" onClick={(e)=>this.props.addSubcatModal(e,id)} />

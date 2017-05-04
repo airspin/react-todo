@@ -1,16 +1,42 @@
 import React, { Component } from 'react';
 import AddTaskContainer from './addTask/AddTaskContainer';
+import TaskEditorContainer from './taskEditor/TaskEditorContainer';
 import TasksList from './TasksList';
-import { changeTaskState } from './actions/index';
+import { changeTaskState,taskChangeEditmode,addNewTask,removeTask } from './actions';
+import { showModal } from '../ModalWindow/actions';
 import { connect } from 'react-redux';
 import { sortArrOfObj } from '../../utils/helpers';
 
 class TaskPanel extends Component {
+    removeTaskModal = (id) => {
+        this.props.showModal({
+            modalType:'RemoveTask',
+            modalParams:{
+                id,
+                title: 'Remove task',
+                templ: 'RemoveTask',
+                confirmBtnName: 'Yes',
+                cancelBtnName: 'Cancel'
+            },
+        })
+    }
     render() {
+        const activeTask = this.props.activeTask;
         return(
             <div className="row">
                 <AddTaskContainer />
-                <TasksList tasks={this.props.tasks.items} onCompleteChange={this.props.changeTaskState}/>
+                {activeTask ?
+                <TaskEditorContainer
+                    onCancelEdit={this.props.taskChangeEditmode}
+                    onSaveEdit={this.props.addNewTask}
+                    activeTask={activeTask}
+                /> :
+                <TasksList tasks={this.props.tasks.items}
+                           onCompleteChange={this.props.changeTaskState}
+                           onEditBtn={this.props.taskChangeEditmode}
+                           onRemoveBtn={this.removeTaskModal}
+                />
+                }
             </div>
         )
     }
@@ -41,6 +67,7 @@ const tasksSelector = (tasks) => {
 const mapStateToProps = (state) => {
     return {
         activeCat: state.categories.activeCat,
+        activeTask: state.tasks.activeTask,
         tasks: tasksSelector(state.tasks),
     }
 };
@@ -48,7 +75,11 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return (
         {
-            changeTaskState: (id) => dispatch(changeTaskState(id))
+            changeTaskState: (id) => dispatch(changeTaskState(id)),
+            taskChangeEditmode: (task) => dispatch(taskChangeEditmode(task)),
+            addNewTask: (task) => dispatch(addNewTask(task)),
+            removeTask: (id) => dispatch(removeTask(id)),
+            showModal: (modalData) => dispatch(showModal(modalData))
         }
     )
 };

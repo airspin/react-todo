@@ -4,7 +4,9 @@ import * as Templ from './templates';
 
 const templ = {
     'AddSubcat': Templ.AddSubcat,
-    'RenameCat': Templ.RenameCat
+    'RenameCat': Templ.RenameCat,
+    'RemoveTask': Templ.RemoveTask,
+    'RemoveCat': Templ.RemoveCat
 };
 
 console.log('TEMPLATE:',Templ);
