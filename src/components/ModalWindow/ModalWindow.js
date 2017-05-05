@@ -6,7 +6,8 @@ const templ = {
     'AddSubcat': Templ.AddSubcat,
     'RenameCat': Templ.RenameCat,
     'RemoveTask': Templ.RemoveTask,
-    'RemoveCat': Templ.RemoveCat
+    'RemoveCat': Templ.RemoveCat,
+    'MoveToCat': Templ.MoveToCat,
 };
 
 console.log('TEMPLATE:',Templ);
@@ -48,6 +49,9 @@ class ModalWindow extends Component {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button bsStyle="primary" onClick={this.onCancelBtnClick} >{params.cancelBtnName}</Button>
+                    {params.middleBtnName &&
+                        <Button bsStyle="info" onClick={() => this.onConfirmBtnClick()} >{params.middleBtnName}</Button>
+                    }
                     <Button bsStyle="success" onClick={() => this.onConfirmBtnClick()} >{params.confirmBtnName}</Button>
                 </Modal.Footer>
             </Modal>

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-//
+import { Router, Route, hashHistory } from 'react-router';
 import { Provider } from 'react-redux';
 // import { composeWithDevTools } from 'redux-devtools-extension';
 import { loadInitialState } from './actions/app';

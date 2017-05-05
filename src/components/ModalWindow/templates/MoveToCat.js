@@ -1,29 +1,33 @@
 import React, { Component } from 'react';
 import { connectAdvanced } from 'react-redux';
 import shallowEqual from 'react-redux/lib/utils/shallowEqual';
-import { removeCategory } from '../../categoryPanel/actions/categories';
+import { removeTask, addNewTask } from '../../taskPanel/actions';
 import { hideModal } from '../../ModalWindow/actions';
 
-class RemoveCat extends Component{
+class MoveToCat extends Component{
     onConfirmBtn() {
         this.props.removeCategory(this.props.params.id);
         this.props.hideModal();
     }
+    onMiddleBtn() {
+
+    }
     render(){
         return (
-                <div>
-                    <h3>
-                        Are you shure you want to remove this category and all nested categories and tasks?
-                    </h3>
-                </div>
-            )
+            <div>
+                <h4>
+                    Are you shure you want to move this this task in category: "{this.props.params.newCatName}"?
+                </h4>
+            </div>
+        )
     }
 }
 
 
 const selectorFactory = (dispatch) => {
     const actions = {
-        removeCategory: (id) => dispatch(removeCategory(id)),
+        removeTask: (id) => dispatch(removeTask(id)),
+        addNewTask: (task) => dispatch(addNewTask(task)),
         hideModal: () => dispatch(hideModal())
     };
 
@@ -39,4 +43,4 @@ const selectorFactory = (dispatch) => {
     }
 };
 
-export default connectAdvanced(selectorFactory, { withRef: true, getDisplayName: (name)=>name })(RemoveCat);
+export default connectAdvanced(selectorFactory, { withRef: true, getDisplayName: (name)=>name })(MoveToCat);

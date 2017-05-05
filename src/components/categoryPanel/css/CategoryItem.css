@@ -29,6 +29,10 @@
     float: left;
 }
 
+.task-item {
+    min-height: 42px;
+}
+
 .task-item .task-title{
     min-width: 40%;
     float: left;

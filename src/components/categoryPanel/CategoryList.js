@@ -88,13 +88,31 @@ class CategoryList extends Component {
             },
         })
     }
+    moveToCatModal = (e,newCatId,newCatName,task) => {
+        e.stopPropagation();
+        this.props.showModal({
+            modalType:'MoveToCat',
+            modalParams:{
+                newCatId,
+                task,
+                newCatName,
+                title: 'Move task to category',
+                templ: 'MoveToCat',
+                middleBtnName: 'Yes without save changes',
+                confirmBtnName: 'Yes with save changes',
+                cancelBtnName: 'Cancel'
+            }
+        })
+    }
     toggleActive = (id) => {
-        console.log(`ta ${id}`);
         const activeCat = this.props.activeCat;
-        if (id !== activeCat) {
-            this.props.onSelectCat(id)
-        } else {
-            this.props.onSelectCat(null)
+        const activeTask = this.props.activeTask;
+        if (!activeTask) {
+            if (id !== activeCat) {
+                this.props.onSelectCat(id)
+            } else {
+                this.props.onSelectCat(null)
+            }
         }
     }
     onConfirmBtn = (name,parent)=>{
@@ -108,6 +126,7 @@ class CategoryList extends Component {
     render() {
         const { rootCat,children }  = this.props.data;
         const activeCat = this.props.activeCat;
+        const activeTask = this.props.activeTask;
         console.log('CategoriesList render');
         // console.log(this.props);
         return(
@@ -120,10 +139,12 @@ class CategoryList extends Component {
                                               children={children}
                                               category={cat}
                                               activeCat={activeCat}
+                                              activeTask={activeTask}
                                               toggleActive={this.toggleActive}
                                               removeCat={this.removeCatModal}
                                               addSubcatModal={this.addSubcatModal}
                                               renameCatModal={this.renameCatModal}
+                                              moveToCatModal={this.moveToCatModal}
                                 />)
                         }
                     </ul>
@@ -165,10 +186,11 @@ function catSelector (categories) {
     return cacheCategories;
 }
 
-const mapStateToProps = ({categories}) => {
+const mapStateToProps = (state) => {
     return {
-        data:  catSelector(categories.items),
-        activeCat: categories.activeCat
+        data:  catSelector(state.categories.items),
+        activeCat: state.categories.activeCat,
+        activeTask: state.tasks.activeTask
     }
 }
 
