@@ -34,8 +34,8 @@ class ProgrBar extends Component {
 }
 
 const mapStateToProps = (state)=> ({
-    tasks: state.tasks.items,
-    activeCat: state.categories.activeCat
+    tasks: state.data.present.tasks.items,
+    activeCat: state.data.present.categories.activeCat
 });
 
 export default connect(mapStateToProps)(ProgrBar);

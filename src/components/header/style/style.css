@@ -1,0 +1,12 @@
+.undoRedo {
+    margin-top: 27px;
+}
+
+.undoRedo .item {
+    cursor: pointer;
+}
+
+
+.undoRedo .fa-rotate-left:before, .fa-undo:before {
+    font-weight: 700;
+}

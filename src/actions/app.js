@@ -111,7 +111,7 @@ export const loadInitialState = () => {
                 dispatch(loadCategoriesSuccess(todoListData.categories));
                 dispatch(loadTasksSuccess(todoListData.tasks));
                 dispatch(initialStateSuccess(todoListData));
-
+                dispatch({type:'@@redux-undo/CLEAR_HISTORY'});
                 //dispatch(loadTasksSuccess(todoListData.tasks));
                 //dispatch(initialStateSuccess(todoListData));
             }, 1000);

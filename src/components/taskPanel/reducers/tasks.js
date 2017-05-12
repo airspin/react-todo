@@ -3,7 +3,7 @@ import * as ActionsCats from '../../categoryPanel/actions/categories';
 import * as ActionsFilter from '../../header/actions'
 
 const initialState = {
-    items: null,
+    items: {},
     activeTask: null,
     filters: {
         byActiveCat: null,
@@ -16,7 +16,7 @@ export default function tasksReducer (state = initialState, action) {
     const filters = state.filters;
     const items = state.items;
     const removeTasksFromSubcat = (catIdsToRemove,items) => {
-        let newItems = Object.assign({}, items);
+        let newItems = JSON.parse(JSON.stringify(items));
         Object.values(items).forEach(task => {
             catIdsToRemove.forEach(id => {
                 if (task.category === id)
@@ -26,7 +26,7 @@ export default function tasksReducer (state = initialState, action) {
         return newItems
     };
     const removeTask = (id,items) => {
-        let newItems = Object.assign({}, items);
+        let newItems = JSON.parse(JSON.stringify(items));
         delete newItems[id];
         return newItems;
     };
@@ -50,6 +50,8 @@ export default function tasksReducer (state = initialState, action) {
             return {...state, activeTask:action.payload};
         case Actions.TASK_REMOVE:
             return {...state, items: removeTask(action.payload,items)};
+        case Actions.TASK_MOVE_TO_CAT:
+            return {...state,activeTask: {...state.activeTask, category:action.payload}};
         default:
             return state
     }

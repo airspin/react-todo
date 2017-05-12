@@ -1,23 +1,26 @@
 import * as Actions from '../actions/categories';
 
 const initialState = {
-    items: null,
+    items: {},
     activeCat: null
 };
 
 export default function categoriesReducer(state = initialState, action) {
     const items = state.items;
     const removeAllSubcat = (catIdsToRemove,items) => {
-        let newItems = Object.assign({}, items);
+        let newItems = JSON.parse(JSON.stringify(items));
         catIdsToRemove.forEach(id => {
             delete newItems[id]
         });
         return newItems
     };
     const renameCat = (id,newName) => {
-        let newItems = Object.assign({}, items);
+        let newItems = JSON.parse(JSON.stringify(items));
         console.log(newItems[id]);
         newItems[id].name = newName;
+        if(newItems[1] === items[1]) {
+            console.error('It\'s fuck up!!!!');
+        }
         return newItems;
     };
     switch (action.type) {

@@ -3,9 +3,9 @@ import { CATEGORY_REMOVE_CHILD } from '../components/categoryPanel/actions/categ
 export const removeCategory = store => next => action => {
     if (action.type === 'REMOVE_CATEGORY') {
         const state = store.getState();
-        const categories = Object.assign({},state.categories.items);
+        const categories = JSON.parse(JSON.stringify(state.data.present.categories.items));
         const findAllSubcat = (id,items) => {
-            let newItems = Object.assign({}, items);
+            let newItems = JSON.parse(JSON.stringify(items));
             let catIdsToRemove = [];
             const findChildren = (id,items) => {
                 catIdsToRemove.push(id);

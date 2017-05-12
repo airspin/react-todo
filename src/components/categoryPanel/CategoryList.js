@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 import { changeActiveCatAction, removeCategory, addNewCategoryItem } from './actions/categories';
+import { moveTaskToCat } from '../taskPanel/actions'
 import { hideModal, showModal } from '../ModalWindow/actions';
 import CategoryItem from './CategoryItem';
 import { sortArrOfObj } from '../../utils/helpers';
@@ -88,21 +89,9 @@ class CategoryList extends Component {
             },
         })
     }
-    moveToCatModal = (e,newCatId,newCatName,task) => {
+    moveTaskToCat = (e,newCatId) => {
         e.stopPropagation();
-        this.props.showModal({
-            modalType:'MoveToCat',
-            modalParams:{
-                newCatId,
-                task,
-                newCatName,
-                title: 'Move task to category',
-                templ: 'MoveToCat',
-                middleBtnName: 'Yes without save changes',
-                confirmBtnName: 'Yes with save changes',
-                cancelBtnName: 'Cancel'
-            }
-        })
+        this.props.moveTaskToCat(newCatId)
     }
     toggleActive = (id) => {
         const activeCat = this.props.activeCat;
@@ -144,7 +133,7 @@ class CategoryList extends Component {
                                               removeCat={this.removeCatModal}
                                               addSubcatModal={this.addSubcatModal}
                                               renameCatModal={this.renameCatModal}
-                                              moveToCatModal={this.moveToCatModal}
+                                              moveTaskToCat={this.moveTaskToCat}
                                 />)
                         }
                     </ul>
@@ -154,12 +143,13 @@ class CategoryList extends Component {
     }
 }
 
-let cacheCategories = null;
+// let cacheCategories = null;
 
 function catSelector (categories) {
     if (!categories) {
         return null;
     }
+    let cacheCategories = null;
     let rootCat=[];
     let children={};
     const sorter = sortArrOfObj('id','dec');
@@ -188,9 +178,9 @@ function catSelector (categories) {
 
 const mapStateToProps = (state) => {
     return {
-        data:  catSelector(state.categories.items),
-        activeCat: state.categories.activeCat,
-        activeTask: state.tasks.activeTask
+        data:  catSelector(state.data.present.categories.items),
+        activeCat: state.data.present.categories.activeCat,
+        activeTask: state.data.present.tasks.activeTask
     }
 }
 
@@ -199,6 +189,7 @@ const mapDispatchToProps = (dispatch, getState) => {
         onSelectCat: (id) => dispatch(changeActiveCatAction(id)),
         onRemoveCat: (id) => dispatch(removeCategory(id)),
         addNewCategory: (category) => dispatch(addNewCategoryItem(category)),
+        moveTaskToCat: (id) => dispatch(moveTaskToCat(id)),
         showModal: (modaldata) => dispatch(showModal(modaldata)),
         hideModal: () => dispatch(hideModal())
     }

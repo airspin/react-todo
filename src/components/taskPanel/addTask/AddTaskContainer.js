@@ -24,7 +24,7 @@ class AddTaskContainer extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    activeCat: state.categories.activeCat
+    activeCat: state.data.present.categories.activeCat
 });
 
 const mapDispatchToProps = (dispatch) => ({

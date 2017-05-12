@@ -5,24 +5,24 @@ import { addNewCategoryItem } from '../actions/categories'
 
 class AddCategoryContainer extends Component {
     addCategory = (name)=>{
-        let task = {
+        let cat = {
             name: name,
             id: Date.now(),
             parent: null
         };
-        this.props.addNewCategory(task);
+        this.props.addNewCategory(cat);
     }
     render(){
         const btnAction = this.addCategory;
         return(
-            <AddCategory btnAction={btnAction} />
+            <AddCategory btnAction={btnAction}/>
         )
     }
 }
 
 const mapDispatchToProps = (dispatch) => ({
     addNewCategory: (category) => dispatch(addNewCategoryItem(category))
-})
+});
 
 
 export default connect(null,mapDispatchToProps)(AddCategoryContainer);

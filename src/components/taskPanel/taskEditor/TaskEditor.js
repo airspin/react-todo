@@ -19,7 +19,7 @@ class TaskEditor extends Component {
     }
     changeForm = (e, field)=>{
         const val = e.target.value;
-        let task = Object.assign({},this.state.task);
+        let task = JSON.parse(JSON.stringify(this.state.task));
         if (field === 'isCompleted'){
             task[field] = !this.state.task.isCompleted
         } else {
@@ -31,12 +31,21 @@ class TaskEditor extends Component {
         })
     }
     onSaveEdit = () => {
-        if (this.state.task.name) {
-            this.props.onSaveEdit(this.state.task);
+        let newTaskData = Object.assign({},this.state.task);
+        newTaskData.category = this.props.activeTask.category;
+        if (newTaskData.name) {
+            this.props.onSaveEdit(newTaskData);
             this.props.onCacelEdit(null);
         } else {
             this.setState({
                 nameHasErr: true
+            })
+        }
+    }
+    componentWillReceiveProps(nextProps){
+        if (this.props.activeTask.category !== nextProps.activeTask.category) {
+            this.setState({
+                isEdited: true
             })
         }
     }

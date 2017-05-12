@@ -66,9 +66,9 @@ const tasksSelector = (tasks) => {
 
 const mapStateToProps = (state) => {
     return {
-        activeCat: state.categories.activeCat,
-        activeTask: state.tasks.activeTask,
-        tasks: tasksSelector(state.tasks),
+        activeCat: state.data.present.categories.activeCat,
+        activeTask: state.data.present.tasks.activeTask,
+        tasks: tasksSelector(state.data.present.tasks),
     }
 };
 

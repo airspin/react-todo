@@ -28,7 +28,7 @@ class CategoryItem extends Component {
     }
 
 
-    _renderChild(categories,children,activeCat,activeTask,toggleActive,removeCat,addSubcatModal,renameCatModal,moveToCatModal) {
+    _renderChild(categories,children,activeCat,activeTask,toggleActive,removeCat,addSubcatModal,renameCatModal,moveTaskToCat) {
         console.log(categories,'Suuuub');
         return (
             <ul className={"pure-list" + (this.state.isClosed ? ' hidden-list' : '')} >
@@ -38,7 +38,7 @@ class CategoryItem extends Component {
                                                   category={cat} key={cat.id} activeCat={activeCat} activeTask={activeTask}
                                                   children={children} toggleActive={toggleActive} removeCat={removeCat}
                                                   addSubcatModal={addSubcatModal} renameCatModal={renameCatModal}
-                                                  moveToCatModal={moveToCatModal}
+                                                  moveTaskToCat={moveTaskToCat}
                         />
                     )
                 }
@@ -47,7 +47,7 @@ class CategoryItem extends Component {
     }
 
     render() {
-        const {activeCat,activeTask,toggleActive,removeCat,addSubcatModal,renameCatModal,moveToCatModal} = this.props;
+        const {activeCat,activeTask,toggleActive,removeCat,addSubcatModal,renameCatModal,moveTaskToCat} = this.props;
         const { id,name} = this.props.category;
         const children = this.props.children;
         const myChildren = children[id];
@@ -69,7 +69,7 @@ class CategoryItem extends Component {
                     {activeTask ?
                         <span className="pull-right">
                             {activeTask.category !== id &&
-                            <i className="fa fa-share fa-rotate-180" aria-hidden="true" onClick={(e)=>this.props.moveToCatModal(e,id,name,activeTask)}/>
+                            <i className="fa fa-share fa-rotate-180" aria-hidden="true" onClick={(e)=>this.props.moveTaskToCat(e,id)}/>
                             }
                         </span> :
                         <span>
@@ -82,7 +82,7 @@ class CategoryItem extends Component {
                     }
                 </span>
                 {myChildren && myChildren.length && !this.state.isClosed &&
-                this._renderChild(myChildren,children,activeCat,activeTask,toggleActive,removeCat,addSubcatModal,renameCatModal,moveToCatModal)}
+                this._renderChild(myChildren,children,activeCat,activeTask,toggleActive,removeCat,addSubcatModal,renameCatModal,moveTaskToCat)}
             </li>
         )
     }

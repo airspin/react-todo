@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, hashHistory } from 'react-router';
 import { Provider } from 'react-redux';
-// import { composeWithDevTools } from 'redux-devtools-extension';
 import { loadInitialState } from './actions/app';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
@@ -19,14 +18,7 @@ const enhancer = composeEnhancers(
     // other store enhancers if any
 );
 const store = createStore(reducer, enhancer);
-//const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk, removeCategory)));
 store.dispatch(loadInitialState());
-// ReactDOM.render(
-//     <App />,
-//
-//     document.getElementById('root')
-// );
-
 ReactDOM.render(
     <Provider store={store}>
         <App />

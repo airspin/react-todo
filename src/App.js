@@ -8,13 +8,11 @@ import '../src/css/fontawesome/css/font-awesome.min.css';
 import ModalWindowContainer from "./components/ModalWindow/ModalWindowContainer";
 
 class App extends Component {
-
     render() {
         const { isInited } = this.props;
         if( !isInited ) {
             return <h3>I am loading...</h3>
         }
-
         return (
             <div className="container">
                 <ListPageHeader />
@@ -35,6 +33,8 @@ class App extends Component {
 
 const mapStateToProps = ({inited}) => ({
     isInited: inited
-})
+});
+
+
 
 export default connect(mapStateToProps)(App);

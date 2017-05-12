@@ -34,13 +34,19 @@ class ModalWindow extends Component {
         }
     }
 
+    enterKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            this.onConfirmBtnClick();
+        }
+    }
+
     render(){
         const params = this.props.modalParams;
         const modalType = this.props.modalType;
         const Content = templ[modalType];
         console.log(templ);
         return(
-            <Modal show={!!this.props.modalType} onHide={this.onCancelBtnClick}>
+            <Modal show={!!this.props.modalType} onHide={this.onCancelBtnClick} onKeyUp={(e)=>this.enterKeyPress(e)}>
                 <Modal.Header closeButton>
                     <Modal.Title>{params.title}</Modal.Title>
                 </Modal.Header>
@@ -50,9 +56,9 @@ class ModalWindow extends Component {
                 <Modal.Footer>
                     <Button bsStyle="primary" onClick={this.onCancelBtnClick} >{params.cancelBtnName}</Button>
                     {params.middleBtnName &&
-                        <Button bsStyle="info" onClick={() => this.onConfirmBtnClick()} >{params.middleBtnName}</Button>
+                        <Button bsStyle="info" onClick={() => this.onConfirmBtnClick()}>{params.middleBtnName}</Button>
                     }
-                    <Button bsStyle="success" onClick={() => this.onConfirmBtnClick()} >{params.confirmBtnName}</Button>
+                    <Button bsStyle="success" onClick={() => this.onConfirmBtnClick()}>{params.confirmBtnName}</Button>
                 </Modal.Footer>
             </Modal>
         )

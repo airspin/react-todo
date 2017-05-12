@@ -22,6 +22,11 @@ class AddItem extends Component {
             });
         }
     }
+    enterKeyPress = (e,name,cat) => {
+        if (e.key === 'Enter') {
+            this.submitForm(name,cat);
+        }
+    }
     render() {
         const name = this.state.formValue;
         const cat = this.props.activeCat;
@@ -33,6 +38,7 @@ class AddItem extends Component {
                         value={this.state.formValue}
                         placeholder={this.props.placeholder}
                         onChange={this.changeFormText}
+                        onKeyUp={(e)=>this.enterKeyPress(e,name,cat)}
                     />
                     <InputGroup.Button>
                         <Button onClick={()=>this.submitForm(name,cat)}>{this.props.btnName}</Button>
