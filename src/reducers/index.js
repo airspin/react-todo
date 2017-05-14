@@ -11,7 +11,8 @@ const data = combineReducers({categories,tasks});
 export default combineReducers({
     modalWindows,
     data: undoable(data,{
-        filter: excludeAction(['CHANGE_TASK_STATE','LOAD_TASKS_SUCCESS','TASK_CHANGE_EDITMODE','CHANGE_ACTIVE_CAT'])
+        filter: excludeAction(['LOAD_TASKS_SUCCESS','TASK_CHANGE_EDITMODE','CHANGE_ACTIVE_CAT',
+            'TASK_MOVE_TO_CAT','CHANGE_FILTER_BY_COMPLETE','CHANGE_FILTER_BY_NAME'])
     }),
     inited
 });

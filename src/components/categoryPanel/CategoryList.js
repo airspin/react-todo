@@ -91,7 +91,8 @@ class CategoryList extends Component {
     }
     moveTaskToCat = (e,newCatId) => {
         e.stopPropagation();
-        this.props.moveTaskToCat(newCatId)
+        this.props.moveTaskToCat(newCatId);
+        this.props.onSelectCat(newCatId);
     }
     toggleActive = (id) => {
         const activeCat = this.props.activeCat;

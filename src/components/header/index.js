@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { PageHeader, Button, Grid, Row, Col, FormControl, FormGroup, InputGroup, Glyphicon, Checkbox, ControlLabel } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { changeFilterByComplete, changeFilterByName } from './actions';
+import { taskChangeEditmode } from '../taskPanel/actions';
 import { ActionCreators } from 'redux-undo';
 import './style/style.css';
 function debounce(f, ms) {
@@ -49,6 +50,7 @@ class ListPageHeader extends Component {
     onStoreUndo = () => {
         if (this.props.canUndo) {
             this.props.storeUndo();
+            this.props.taskChangeEditmode(null);
         } else {
             console.info('can\'t undo')
         }
@@ -57,6 +59,7 @@ class ListPageHeader extends Component {
     onStoreRedo = () => {
         if (this.props.canRedo) {
             this.props.storeRedo();
+            this.props.taskChangeEditmode(null);
         } else {
             console.info('can\'t redo')
         }
@@ -103,14 +106,16 @@ class ListPageHeader extends Component {
 const mapStateToProps = (state) => ({
     filters: state.data.present.tasks.filters,
     canUndo: !!state.data.past.length,
-    canRedo: !!state.data.future.length
+    canRedo: !!state.data.future.length,
+    activeTask: state.data.present.tasks.activeTask
 });
 
 const mapDispatchToProps = (dispatch) => ({
     changeFilterByComplete: () => dispatch(changeFilterByComplete()),
     changeFilterByName: (name='') => dispatch(changeFilterByName(name)),
     storeUndo: () => dispatch(ActionCreators.undo()),
-    storeRedo: () => dispatch(ActionCreators.redo())
+    storeRedo: () => dispatch(ActionCreators.redo()),
+    taskChangeEditmode: (task) => dispatch(taskChangeEditmode(task))
 });
 
 
