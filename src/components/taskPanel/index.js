@@ -24,9 +24,8 @@ class TaskPanel extends Component {
         const activeTask = this.props.activeTask;
         return(
             <div className="row">
-                <AddTaskContainer />
-                {activeTask ?
-                <TaskEditorContainer
+                { activeTask ? null : <AddTaskContainer />}
+                { activeTask ? <TaskEditorContainer
                     onCancelEdit={this.props.taskChangeEditmode}
                     onSaveEdit={this.props.addNewTask}
                     activeTask={activeTask}

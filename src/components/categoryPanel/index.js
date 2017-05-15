@@ -14,7 +14,7 @@ class CategoryPanel extends Component {
                     placeholder={placeholder}
                     btnName={btnName}
                 />
-                <CategoryList categories={this.props.categories} />
+                <CategoryList categories={this.props.categories} location={this.props.location} />
             </div>
         )
     }

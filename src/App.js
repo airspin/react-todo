@@ -9,6 +9,7 @@ import ModalWindowContainer from "./components/ModalWindow/ModalWindowContainer"
 
 class App extends Component {
     render() {
+        console.log('params: ',this.props.params);
         const { isInited } = this.props;
         if( !isInited ) {
             return <h3>I am loading...</h3>
@@ -19,7 +20,7 @@ class App extends Component {
                 <ProgrBar />
                 <div className="row">
                     <div className="col-md-4">
-                        <CategoryPanel/>
+                        <CategoryPanel location={this.props.location}/>
                     </div>
                     <div className="col-md-8">
                         <TaskPanel />

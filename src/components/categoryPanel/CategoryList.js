@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-// import s from './style.css';
-
 import { connect } from 'react-redux';
 import { changeActiveCatAction, removeCategory, addNewCategoryItem } from './actions/categories';
 import { moveTaskToCat } from '../taskPanel/actions'
@@ -112,6 +110,12 @@ class CategoryList extends Component {
             parent: parent
         };
         this.props.addNewCategory(cat);
+    }
+    componentDidMount(){
+        const activeCat = +this.props.location.query.activeCat;
+        if (activeCat) {
+            this.props.onSelectCat(activeCat)
+        }
     }
     render() {
         const { rootCat,children }  = this.props.data;
