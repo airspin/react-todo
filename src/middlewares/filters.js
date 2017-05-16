@@ -1,16 +1,42 @@
 import { browserHistory } from 'react-router';
 export const filters = store => next => action => {
-    if (action.type === 'CHANGE_ACTIVE_CAT') {
-        const activeCat = action.payload;
-        if (activeCat){
-            browserHistory.push('?activeCat='+activeCat)
+    const payload = action.payload;
+    let location = browserHistory.getCurrentLocation();
+    const pushHistory = (name,value=payload) => {
+        if (value){
+            location.query[name] = value;
         } else {
-            browserHistory.push('')
+            delete location.query[name];
         }
-        next(action);
-    } else {
-        next(action);
+        browserHistory.push(location);
     }
+    switch (action.type) {
+        case 'CHANGE_ACTIVE_CAT':
+            pushHistory('activeCat');
+            break;
+        case 'CHANGE_FILTER_BY_NAME':
+            pushHistory('filterByName');
+            break;
+        case 'CHANGE_FILTER_BY_COMPLETE':
+            pushHistory('filterByComplete');
+            break;
+        case 'REMOVE_CATEGORY':
+            let activeCat = +location.query.activeCat;
+            if (activeCat) {
+                if (activeCat===payload) {
+                    delete location.query.activeCat;
+                    browserHistory.push(location);
+                }
+            }
+            break;
+        case 'TASK_CHANGE_EDITMODE':
+            if (payload) {
+                location.pathname='/editor/'+payload.id;
+            } else {
+                location.pathname='';
+            }
+            browserHistory.push(location);
+            break;
+    }
+    next(action);
 };
-
-

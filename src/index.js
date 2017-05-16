@@ -12,7 +12,7 @@ import App from './App';
 import reducer from './reducers';
 import './index.css';
 
-const middleware = [thunk, removeCategory, filters];
+const middleware = [thunk, filters ,removeCategory];
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const enhancer = composeEnhancers(
     applyMiddleware(...middleware),
@@ -27,6 +27,9 @@ ReactDOM.render(
                 <IndexRedirect to="/tasks" />
             </Route>
             <Route path="/tasks" component={App} >
+                <IndexRoute component={App} />
+            </Route>
+            <Route path="/editor/:id" component={App} >
                 <IndexRoute component={App} />
             </Route>
         </Router>

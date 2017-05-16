@@ -36,7 +36,7 @@ export default function tasksReducer (state = initialState, action) {
         case ActionsCats.CHANGE_ACTIVE_CAT:
             return {...state, filters: {...filters, byActiveCat:action.payload}};
         case ActionsFilter.CHANGE_FILTER_BY_COMPLETE:
-            return {...state, filters: {...filters, byComplete:!filters.byComplete}};
+            return {...state, filters: {...filters, byComplete:action.payload}};
         case ActionsFilter.CHANGE_FILTER_BY_NAME:
             return {...state, filters: {...filters, byName:action.payload}};
         case Actions.CHANGE_TASK_STATE:

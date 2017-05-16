@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { PageHeader, Button, Grid, Row, Col, FormControl, FormGroup, InputGroup, Glyphicon, Checkbox, ControlLabel } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { changeFilterByComplete, changeFilterByName } from './actions';
+import { changeActiveCatAction } from '../categoryPanel/actions/categories';
 import { taskChangeEditmode } from '../taskPanel/actions';
 import { ActionCreators } from 'redux-undo';
 import './style/style.css';
@@ -12,6 +13,7 @@ function debounce(f, ms) {
 
     return function() {
         var args = arguments;
+        console.log(args);
 
         if(timeout) {
             clearTimeout(timeout);
@@ -29,22 +31,31 @@ class ListPageHeader extends Component {
     constructor(props){
         super(props);
         this.state = {
-            filterByName: ''
+            filterByName: '',
+            filterByComplete: false
         }
-        this.debouncedFilter = debounce(this.props.changeFilterByName, 200);
+        this.debouncedNameFilter = debounce(this.props.filterByName, 200);
+        this.debouncedCompleteFilter = debounce(this.props.filterByComplete, 150);
     }
 
-    filterByName = (e) => {
-        const val = e.target.value;
-        this.setState({filterByName:val}, () => {
-            this.debouncedFilter(val);
+    onNameChange = ({target: { value }}) =>  {
+        this.setState({filterByName: value}, () => {
+            this.debouncedNameFilter(value);
         });
-    }
+    };
+
+    onCompleteChange = ({target: {checked}}) =>  {
+        this.setState({filterByComplete: checked}, () => {
+            this.debouncedCompleteFilter(checked);
+        });
+    };
+
+
 
     clearFilter = () => {
         this.setState({
             filterByName: ''
-        },this.props.changeFilterByName)
+        },this.props.filterByName)
     }
 
     onStoreUndo = () => {
@@ -64,7 +75,22 @@ class ListPageHeader extends Component {
             console.info('can\'t redo')
         }
     }
-
+    componentWillMount() {
+        const filterByComplete = this.props.location.query.filterByComplete === 'true' ? true : false;
+        console.log('FILTER COMPLETE:',filterByComplete);
+        const filterByName = this.props.location.query.filterByName;
+        const activeCat = +this.props.location.query.activeCat;
+        if (activeCat) {
+            this.props.filterByCat(activeCat)
+        }
+        if (filterByName) {
+            this.props.filterByName(filterByName);
+            this.setState({filterByName: filterByName})
+        }
+        if (filterByComplete) {
+            this.setState({filterByComplete: filterByComplete})
+        }
+    }
     render() {
         const {canUndo, canRedo} = this.props;
         return (
@@ -85,13 +111,13 @@ class ListPageHeader extends Component {
                     </Col>
                     <Col md={5}>
                         <FormGroup className="marg-top-md">
-                            <Checkbox inline onChange={this.props.changeFilterByComplete} className="padd-right-md">
+                            <Checkbox inline onChange={this.onCompleteChange} checked={this.state.filterByComplete} className="padd-right-md">
                                 Show Done
                             </Checkbox>
                             <div className="btn-group">
                                 <input id="searchinput" value={this.state.filterByName} type="search"
                                        className="form-control"
-                                       onChange={this.filterByName}
+                                       onChange={this.onNameChange}
                                 />
                                 <span id="searchclear" className="glyphicon glyphicon-remove-circle" onClick={this.clearFilter}></span>
                             </div>
@@ -111,8 +137,9 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    changeFilterByComplete: () => dispatch(changeFilterByComplete()),
-    changeFilterByName: (name='') => dispatch(changeFilterByName(name)),
+    filterByComplete: (status) => dispatch(changeFilterByComplete(status)),
+    filterByName: (name='') => dispatch(changeFilterByName(name)),
+    filterByCat: (id) => dispatch(changeActiveCatAction(id)),
     storeUndo: () => dispatch(ActionCreators.undo()),
     storeRedo: () => dispatch(ActionCreators.redo()),
     taskChangeEditmode: (task) => dispatch(taskChangeEditmode(task))

@@ -111,12 +111,6 @@ class CategoryList extends Component {
         };
         this.props.addNewCategory(cat);
     }
-    componentDidMount(){
-        const activeCat = +this.props.location.query.activeCat;
-        if (activeCat) {
-            this.props.onSelectCat(activeCat)
-        }
-    }
     render() {
         const { rootCat,children }  = this.props.data;
         const activeCat = this.props.activeCat;

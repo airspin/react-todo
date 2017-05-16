@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import ListPageHeader from './components/header/index'
+import ListPageHeader from './components/header'
 import ProgrBar from './components/progressBar';
 import TaskPanel from './components/taskPanel';
 import CategoryPanel from './components/categoryPanel';
@@ -16,14 +16,14 @@ class App extends Component {
         }
         return (
             <div className="container">
-                <ListPageHeader />
+                <ListPageHeader location={this.props.location} />
                 <ProgrBar />
                 <div className="row">
                     <div className="col-md-4">
                         <CategoryPanel location={this.props.location}/>
                     </div>
                     <div className="col-md-8">
-                        <TaskPanel />
+                        <TaskPanel location={this.props.location}/>
                     </div>
                 </div>
                 <ModalWindowContainer/>

@@ -3,6 +3,7 @@ import AddTaskContainer from './addTask/AddTaskContainer';
 import TaskEditorContainer from './taskEditor/TaskEditorContainer';
 import TasksList from './TasksList';
 import { changeTaskState,taskChangeEditmode,addNewTask,removeTask } from './actions';
+import { changeActiveCatAction } from '../categoryPanel/actions/categories';
 import { showModal } from '../ModalWindow/actions';
 import { connect } from 'react-redux';
 import { sortArrOfObj } from '../../utils/helpers';
@@ -20,6 +21,10 @@ class TaskPanel extends Component {
             },
         })
     }
+    onEditBtn= (task) => {
+        this.props.changeActiveCat(task.category);
+        this.props.taskChangeEditmode(task);
+    }
     render() {
         const activeTask = this.props.activeTask;
         return(
@@ -32,7 +37,7 @@ class TaskPanel extends Component {
                 /> :
                 <TasksList tasks={this.props.tasks.items}
                            onCompleteChange={this.props.changeTaskState}
-                           onEditBtn={this.props.taskChangeEditmode}
+                           onEditBtn={this.onEditBtn}
                            onRemoveBtn={this.removeTaskModal}
                 />
                 }
@@ -76,6 +81,7 @@ const mapDispatchToProps = (dispatch) => {
         {
             changeTaskState: (id) => dispatch(changeTaskState(id)),
             taskChangeEditmode: (task) => dispatch(taskChangeEditmode(task)),
+            changeActiveCat: (id) => dispatch(changeActiveCatAction(id)),
             addNewTask: (task) => dispatch(addNewTask(task)),
             removeTask: (id) => dispatch(removeTask(id)),
             showModal: (modalData) => dispatch(showModal(modalData))
