@@ -2,3 +2,7 @@
     background-color: #749bff;
     width: 300px;
 }
+
+.editor-mode {
+    min-height: 59px;
+}

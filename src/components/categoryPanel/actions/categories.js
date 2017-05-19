@@ -9,7 +9,7 @@ export const CATEGORY_REMOVE_CHILD = 'CATEGORY_RCH';
 
 // const loadCategoriesRequest = () => ({type: LOAD_CATEGORIES_REQUEST});
 export const loadCategoriesSuccess = (categories) => ({type: LOAD_CATEGORIES_SUCCESS, payload: { categories }});
-export const changeActiveCatAction = (id) => ({type: CHANGE_ACTIVE_CAT, payload: id});
+export const changeActiveCat = (id) => ({type: CHANGE_ACTIVE_CAT, payload: id});
 export const addNewCategoryItem = (category) => ({type: ADD_NEW_CATEGORY_ITEM, payload: category});
 export const removeCategory = (id) => ({type: REMOVE_CATEGORY, payload: id});
 export const renameCategory = (id,newName) => ({type: RENAME_CATEGORY, payload: {id,newName}});

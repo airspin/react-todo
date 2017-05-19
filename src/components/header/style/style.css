@@ -10,3 +10,9 @@
 .undoRedo .fa-rotate-left:before, .fa-undo:before {
     font-weight: 700;
 }
+
+
+.todo-logo,.todo-logo:hover,.todo-logo:visited {
+    color: black;
+    text-decoration: none;
+}

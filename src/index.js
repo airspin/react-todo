@@ -1,11 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, hashHistory, browserHistory, IndexRoute, Redirect, IndexRedirect } from 'react-router';
+import { Router, Route, browserHistory, IndexRoute, IndexRedirect } from 'react-router';
 import { Provider } from 'react-redux';
 import { loadInitialState } from './actions/app';
+import TaskEditorContainer from './components/taskPanel/taskEditor/TaskEditorContainer';
+import TaskPanel from './components/taskPanel';
+import TasksListContainer from './components/taskPanel/TasksList/TasksListContainer';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
-
 import { removeCategory } from './middlewares/removeCategory';
 import { filters } from './middlewares/filters';
 import App from './App';
@@ -20,17 +22,19 @@ const enhancer = composeEnhancers(
 );
 const store = createStore(reducer, enhancer);
 store.dispatch(loadInitialState());
+
 ReactDOM.render(
     <Provider store={store}>
         <Router history={browserHistory}>
-            <Route path="/">
+            <Route path="/" component={App}>
                 <IndexRedirect to="/tasks" />
-            </Route>
-            <Route path="/tasks" component={App} >
-                <IndexRoute component={App} />
-            </Route>
-            <Route path="/editor/:id" component={App} >
-                <IndexRoute component={App} />
+                <Route path="/tasks" component={TaskPanel}>
+                    <IndexRoute component={TasksListContainer}/>
+                </Route>
+                <Route path="/task" component={TaskPanel}>
+                    <IndexRedirect to="/tasks" />
+                    <Route path="/task/:id" component={TaskEditorContainer}/>
+                </Route>
             </Route>
         </Router>
     </Provider>,

@@ -35,7 +35,7 @@ class TaskEditor extends Component {
         newTaskData.category = this.props.activeTask.category;
         if (newTaskData.name) {
             this.props.onSaveEdit(newTaskData);
-            this.props.onCacelEdit(null);
+            this.props.onCancelEdit(null);
         } else {
             this.setState({
                 nameHasErr: true
@@ -43,6 +43,8 @@ class TaskEditor extends Component {
         }
     }
     componentWillReceiveProps(nextProps){
+        console.log('ТЕКУЩИЕ ПРОПСЫ:',this.props);
+        console.log('NEXT ПРОПСЫ:',nextProps);
         if (this.props.activeTask.category !== nextProps.activeTask.category) {
             this.setState({
                 isEdited: true
@@ -54,7 +56,7 @@ class TaskEditor extends Component {
             <div>
                 <div className="col-md-12 text-right">
                     <button className="btn btn-success marg-right-md" disabled={!this.state.isEdited} onClick={this.onSaveEdit}>Save Changes</button>
-                    <button className="btn btn-danger" onClick={()=> this.props.onCacelEdit(null)}>Cancel</button>
+                    <button className="btn btn-danger" onClick={()=> this.props.onCancelEdit(null)}>Cancel</button>
                 </div>
                 <div className="col-md-12">
                     <div className={"form-group " + (this.state.nameHasErr ? "has-error" : "")}>

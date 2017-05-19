@@ -1,5 +1,4 @@
 import React , { Component } from 'react';
-import { Link } from 'react-router';
 import './css/CategoryItem.css';
 
 
@@ -68,10 +67,10 @@ class CategoryItem extends Component {
                     <span className="task-title">
                         {name} &nbsp;
                     </span>
-                    {activeTask ?
+                    {activeTask.id ?
                     <span className="pull-right">
                         {activeTask.category !== id &&
-                        <i className="fa fa-share fa-rotate-180" aria-hidden="true" onClick={(e)=>this.props.moveTaskToCat(e,id)}/>
+                            <i className="fa fa-share fa-rotate-180" aria-hidden="true" onClick={(e)=>this.props.moveTaskToCat(e,id)}/>
                         }
                     </span> :
                     <span>

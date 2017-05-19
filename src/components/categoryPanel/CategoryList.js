@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { changeActiveCatAction, removeCategory, addNewCategoryItem } from './actions/categories';
+import { changeActiveCat, removeCategory, addNewCategoryItem } from './actions/categories';
 import { moveTaskToCat } from '../taskPanel/actions'
 import { hideModal, showModal } from '../ModalWindow/actions';
 import CategoryItem from './CategoryItem';
@@ -114,28 +114,30 @@ class CategoryList extends Component {
     render() {
         const { rootCat,children }  = this.props.data;
         const activeCat = this.props.activeCat;
-        const activeTask = this.props.activeTask;
+        const activeTask = this.props.activeTask || {};
         console.log('CategoriesList render');
         // console.log(this.props);
         return(
             <div className="row">
                 <div className="col-md-12 fixed-height">
-                    <ul className="pure-list">
-                        {
-                            rootCat.map((cat) =>
-                                <CategoryItem key={cat.id}
-                                              children={children}
-                                              category={cat}
-                                              activeCat={activeCat}
-                                              activeTask={activeTask}
-                                              toggleActive={this.toggleActive}
-                                              removeCat={this.removeCatModal}
-                                              addSubcatModal={this.addSubcatModal}
-                                              renameCatModal={this.renameCatModal}
-                                              moveTaskToCat={this.moveTaskToCat}
-                                />)
-                        }
-                    </ul>
+                    {!activeTask.notFound+''==='true' &&
+                        <ul className="pure-list">
+                            {
+                                rootCat.map((cat) =>
+                                    <CategoryItem key={cat.id}
+                                                  children={children}
+                                                  category={cat}
+                                                  activeCat={activeCat}
+                                                  activeTask={activeTask}
+                                                  toggleActive={this.toggleActive}
+                                                  removeCat={this.removeCatModal}
+                                                  addSubcatModal={this.addSubcatModal}
+                                                  renameCatModal={this.renameCatModal}
+                                                  moveTaskToCat={this.moveTaskToCat}
+                                    />)
+                            }
+                        </ul>
+                    }
                 </div>
             </div>
         )
@@ -185,7 +187,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, getState) => {
     return {
-        onSelectCat: (id) => dispatch(changeActiveCatAction(id)),
+        onSelectCat: (id) => dispatch(changeActiveCat(id)),
         onRemoveCat: (id) => dispatch(removeCategory(id)),
         addNewCategory: (category) => dispatch(addNewCategoryItem(category)),
         moveTaskToCat: (id) => dispatch(moveTaskToCat(id)),

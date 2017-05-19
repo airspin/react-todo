@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ListPageHeader from './components/header'
 import ProgrBar from './components/progressBar';
-import TaskPanel from './components/taskPanel';
 import CategoryPanel from './components/categoryPanel';
 import '../src/css/fontawesome/css/font-awesome.min.css';
 import ModalWindowContainer from "./components/ModalWindow/ModalWindowContainer";
@@ -23,7 +22,7 @@ class App extends Component {
                         <CategoryPanel location={this.props.location}/>
                     </div>
                     <div className="col-md-8">
-                        <TaskPanel location={this.props.location}/>
+                        {this.props.children}
                     </div>
                 </div>
                 <ModalWindowContainer/>

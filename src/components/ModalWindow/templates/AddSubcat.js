@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import { connect, connectAdvanced } from 'react-redux';
-// import { changeActiveCatAction, removeCategory, addNewCategoryItem } from '../../categoryPanel/actions/categories';
+// import { changeActiveCat, removeCategory, addNewCategoryItem } from '../../categoryPanel/actions/categories';
 // import { hideModal, showModal } from '../../ModalWindow/actions';
 
 import { connectAdvanced } from 'react-redux';
