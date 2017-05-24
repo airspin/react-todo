@@ -115,12 +115,13 @@ class CategoryList extends Component {
         const { rootCat,children }  = this.props.data;
         const activeCat = this.props.activeCat;
         const activeTask = this.props.activeTask || {};
+        const taskExist = !activeTask.notFound;
         console.log('CategoriesList render');
         // console.log(this.props);
         return(
             <div className="row">
                 <div className="col-md-12 fixed-height">
-                    {!activeTask.notFound+''==='true' &&
+                    {taskExist &&
                         <ul className="pure-list">
                             {
                                 rootCat.map((cat) =>

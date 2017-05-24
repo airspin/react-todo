@@ -29,7 +29,7 @@ function debounce(f, ms) {
     }
 };
 
-class ListPageHeader extends Component {
+export class ListPageHeader extends Component {
     constructor(props){
         super(props);
         this.state = {
